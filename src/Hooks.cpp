@@ -102,7 +102,7 @@ namespace Hooks {
 	// void TextArea::setString(std::string);
 	void(__thiscall* setString_o)(TextArea*, string);
 	void __fastcall setString_hk(TextArea* self, void*, string str) {
-		// Привет sleepyAut!
+		// РџСЂРёРІРµС‚ sleepyAut!
 		setString_o(self, "");
 
 		auto noTagsStr = Coloring::removeTags(str);
