@@ -1,14 +1,17 @@
 #pragma once
 
+// abusing unsafe functions
+#define _CRT_SECURE_NO_WARNINGS
 // system
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#undef _CRT_SECURE_NO_WARNINGS
 
-using std::cout, std::endl, std::tuple,
-      std::string, std::vector;
+using std::cout, std::endl, std::tuple, std::vector;
 
 // cocos2d
 #pragma warning(push, 0)
@@ -29,7 +32,7 @@ using namespace gd;
 #include "utf8.h"
 
 // json lib
-#include "json/json.hpp"
+#include <nlohmann/json.hpp>
 using namespace nlohmann;
 
 // defines

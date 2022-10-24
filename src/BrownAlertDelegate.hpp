@@ -33,7 +33,7 @@ class BrownAlertDelegate : public FLAlertLayer_ {
         // dont override this one
         // the floats are width and height
         // the background sprite may be changed
-        inline virtual bool init(float _w, float _h, const char* _spr = "GJ_square01.png") {
+        inline virtual bool init(float _w, float _h, const char* _spr) {
             auto winSize = cocos2d::CCDirector::sharedDirector()->getWinSize();
             this->m_pLrSize = cocos2d::CCSize { _w, _h };
 

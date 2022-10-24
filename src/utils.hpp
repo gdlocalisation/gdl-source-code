@@ -17,20 +17,20 @@
     }
 
 // THX to HJFod fo that!
-bool patch(uintptr_t const address, const uint8_t* bytes);
+bool patch(uintptr_t address, const uint8_t* bytes);
 
 bool isRusChar(uint32_t cp);
 
-vector<string> SplitString(string s, char separator);
+vector<std::string> SplitString(const std::string& s, char separator);
 
-string join_string(vector<string> strs, const char* delim);
+std::string join_string(const vector<std::string>& strs, const char* delim);
 
-string replaceRusCharsWithASCII(string str);
+std::string replaceRusCharsWithASCII(const std::string& str);
 
-vector<string> splitByWidth(string src, float width, const char* fontName);
+vector<std::string> splitByWidth(const std::string& src, float width, const char* fontName);
 
 // generated with python =)
-std::map<uint32_t, string> ruslettersnums = {
+static std::map<uint32_t, std::string> ruslettersnums = {
     {1025, u8"\u0401"},
     {1105, u8"\u0451"},
     {1040, u8"\u0410"},
@@ -108,13 +108,13 @@ public:
         cout << "[" << std::put_time(&tm, "%H:%M:%S") << "] ";
     }
 
-    ~Logger() {
+    ~Logger() override {
         cout << endl;
     }
 
 private:
     int overflow(int c) override {
-        std::cout.put(c);
+        std::cout.put((char)c);
         return 0;
     }
 };

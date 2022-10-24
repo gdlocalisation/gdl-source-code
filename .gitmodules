@@ -1,0 +1,15 @@
+[submodule "minhook"]
+	path = minhook
+	url = https://github.com/TsudaKageyu/minhook
+[submodule "json"]
+	path = json
+	url = https://github.com/nlohmann/json
+[submodule "gd.h"]
+	path = gd.h
+	url = https://github.com/Galster-dev/gd.h/
+[submodule "utfcpp"]
+	path = utfcpp
+	url = https://github.com/nemtrif/utfcpp
+[submodule "cocos-headers"]
+	path = cocos-headers
+	url = https://github.com/HJfod/cocos-headers

@@ -19,20 +19,18 @@ namespace Hooks {
 				return translationObj;
 			}
 			catch (...) {
-				MessageBoxA(NULL, (string("Failed to parse \"").append(name).append("\"! Check the file for mistakes.")).c_str(), "GDL Error", NULL);
+				MessageBoxA(nullptr, (std::string("Failed to parse \"").append(name).append("\"! Check the file for mistakes.")).c_str(), "GDL Error", NULL);
 				exit(1);
-				return nullptr;
 			}
 		}
 		else
 		{
-			MessageBoxA(NULL, (string("Failed to load \"").append(name).append("\"!")).c_str(), "GDL Error", NULL);
+			MessageBoxA(nullptr, (std::string("Failed to load \"").append(name).append("\"!")).c_str(), "GDL Error", NULL);
 			exit(1);
-			return nullptr;
 		}
 	}
 
-	static vector<string> strs;
+	static vector<std::string> strs;
 
 	void initPatches() {
 		int i = 0;
@@ -43,14 +41,14 @@ namespace Hooks {
 			if (patchFile.find(pair.key()) == patchFile.end())
 				continue;
 
-			string value = string(pair.value());
+			auto value = std::string(pair.value());
 
 			strs.push_back(value);
 
 			auto addresses = patchFile[pair.key()];
 
-			for (auto addr_string : addresses) {
-				auto addr = std::stoul(string(addr_string), nullptr, 16) + 0xC00;
+			for (auto& addr_string : addresses) {
+				auto addr = std::stoul(std::string(addr_string), nullptr, 16) + 0xC00;
 
 				static const char* a;
 				a = strs[i].c_str();
@@ -85,7 +83,7 @@ namespace Hooks {
 
 		auto winSize = CCDirector::sharedDirector()->getWinSize();
 
-		CCLabelBMFont* text = CCLabelBMFont::create(string("GDL ").append(GDL_VERSION).c_str(), "goldFont.fnt");
+		CCLabelBMFont* text = CCLabelBMFont::create(std::string("GDL ").append(GDL_VERSION).c_str(), "goldFont.fnt");
 		self->addChild(text);
 		text->setScale(0.75);
 		text->setPosition({ winSize.width / 2, 308.0 });
@@ -100,8 +98,8 @@ namespace Hooks {
 	}
 
 	// void TextArea::setString(std::string);
-	void(__thiscall* setString_o)(TextArea*, string);
-	void __fastcall setString_hk(TextArea* self, void*, string str) {
+	void(__thiscall* setString_o)(TextArea*, std::string);
+	void __fastcall setString_hk(TextArea* self, void*, std::string str) {
 		// Привет sleepyAut!
 		setString_o(self, "");
 
@@ -109,7 +107,7 @@ namespace Hooks {
 
 		auto lines = splitByWidth(noTagsStr, self->m_width, self->m_fontFile.c_str());
 
-		vector<string> letters(lines.size(), "a");
+		vector<std::string> letters(lines.size(), "a");
 		setString_o(self, join_string(letters, "\n"));
 
 		if (!self->m_label->getChildren()) return;
@@ -140,7 +138,7 @@ namespace Hooks {
 		self->m_label->setPositionY(height - 6);
 
 		self->m_label->m_pLetterArray->removeAllObjects();
-		COPY_ARRAY(letterArray, self->m_label->m_pLetterArray);
+		COPY_ARRAY(letterArray, self->m_label->m_pLetterArray)
 
 		if (!self->m_disableColor)
 			Coloring::parseTags(str, self->m_label->m_pLetterArray);
@@ -163,11 +161,11 @@ namespace Hooks {
 	void (__thiscall* openURL_o)(void*, const char* url);
 	void __fastcall openURL_hk(void* self, void*, const char* url) {
 		// no switch for strings be like:
-		if (string(url) == "http://robtopgames.com/blog/2017/02/01/geometry-dash-newgrounds")
+		if (std::string(url) == "http://robtopgames.com/blog/2017/02/01/geometry-dash-newgrounds")
 			url = "https://www.gdlocalisation.gq/gd/blog/ru/#newgrounds_start";
-		else if (string(url) == "http://www.boomlings.com/files/GJGuide.pdf")
+		else if (std::string(url) == "http://www.boomlings.com/files/GJGuide.pdf")
 			url = "https://www.gdlocalisation.gq/gd/gjguide/ru/gjguide_ru.pdf";
-		else if (string(url) == "http://www.robtopgames.com/gd/faq")
+		else if (std::string(url) == "http://www.robtopgames.com/gd/faq")
 			url = "https://www.gdlocalisation.gq/gd/blog/ru";
 
 		openURL_o(self, url);
@@ -200,7 +198,7 @@ namespace Hooks {
 	}
 
 	void main() {
-		HMODULE cc_handle = GetModuleHandle(L"libcocos2d.dll");
+		HMODULE cc_handle = GetModuleHandleW(L"libcocos2d.dll");
 
 		// i have 0 idea why i have to run this code twice but it only works that way idk lol
 		langFile = loadJson("ru_ru.json");
@@ -210,37 +208,37 @@ namespace Hooks {
 
 		MH_CreateHook(
 			(PVOID)(base + 0xF840),
-			assign_hk,
+            (PVOID)assign_hk,
 			(PVOID*)&assign_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x1907b0),
-			init_hk,
+            (PVOID)init_hk,
 			(PVOID*)&init_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x33480),
-			setString_hk,
+            (PVOID)setString_hk,
 			(PVOID*)&setString_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x138A0),
-			ButtonSprite_init_hk,
+            (PVOID)ButtonSprite_init_hk,
 			(PVOID*)&ButtonSprite_init_o
 		);
 
 		MH_CreateHook(
 			(PVOID)((int)GetProcAddress(cc_handle, "?openURL@CCApplication@cocos2d@@UAEXPBD@Z")),
-			openURL_hk,
+            (PVOID)openURL_hk,
 			(PVOID*)&openURL_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x3B200),
-			AchievementBar_init_hk,
+            (PVOID)AchievementBar_init_hk,
 			(PVOID*)&AchievementBar_init_o
 		);
 		
