@@ -1,7 +1,7 @@
 #include "Menu.hpp"
 
 namespace Menu {
-	CCNode* createCreditsLabels(std::string text, const char* fntName, float scale) {
+	CCNode* createCreditsLabels(const std::string& text, const char* fntName, float scale) {
 		auto ret = CCNode::create();
 
 		float yPos = 0;
@@ -76,7 +76,7 @@ namespace Menu {
 			CCApplication::sharedApplication()->openURL("https://bit.ly/3K4SbF2");
 		}
 
-		virtual void setup() override {
+		void setup() override {
 			// title
 
 			auto title = CCSprite::createWithSpriteFrameName("gdl_logo_text.png");
@@ -212,7 +212,7 @@ namespace Menu {
 		static GDLMenu* create() {
 			auto pRet = new GDLMenu();
 
-			if (pRet && pRet->init(400, 230)) {
+			if (pRet->init(400, 230, "GJ_square01.png")) {
 				pRet->autorelease();
 				return pRet;
 			}
@@ -273,19 +273,19 @@ namespace Menu {
 	void main() {
 		MH_CreateHook(
 			(PVOID)(base + 0x18c080),
-			LoadingLayer_init_hk,
+            (PVOID)LoadingLayer_init_hk,
 			(PVOID*)&LoadingLayer_init_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x18c8e0),
-			loadAssets_hk,
+            (PVOID)loadAssets_hk,
 			(PVOID*)&loadAssets_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x1dd420),
-			customSetup_hk,
+            (PVOID)customSetup_hk,
 			(PVOID*)&customSetup_o
 		);
 	}

@@ -19,16 +19,14 @@ namespace Hooks {
 				return translationObj;
 			}
 			catch (...) {
-				MessageBoxA(NULL, (std::string("Failed to parse \"").append(name).append("\"! Check the file for mistakes.")).c_str(), "GDL Error", NULL);
+				MessageBoxA(nullptr, (std::string("Failed to parse \"").append(name).append("\"! Check the file for mistakes.")).c_str(), "GDL Error", NULL);
 				exit(1);
-				return nullptr;
 			}
 		}
 		else
 		{
-			MessageBoxA(NULL, (std::string("Failed to load \"").append(name).append("\"!")).c_str(), "GDL Error", NULL);
+			MessageBoxA(nullptr, (std::string("Failed to load \"").append(name).append("\"!")).c_str(), "GDL Error", NULL);
 			exit(1);
-			return nullptr;
 		}
 	}
 
@@ -49,7 +47,7 @@ namespace Hooks {
 
 			auto addresses = patchFile[pair.key()];
 
-			for (auto addr_string : addresses) {
+			for (auto& addr_string : addresses) {
 				auto addr = std::stoul(std::string(addr_string), nullptr, 16) + 0xC00;
 
 				static const char* a;
@@ -140,7 +138,7 @@ namespace Hooks {
 		self->m_label->setPositionY(height - 6);
 
 		self->m_label->m_pLetterArray->removeAllObjects();
-		COPY_ARRAY(letterArray, self->m_label->m_pLetterArray);
+		COPY_ARRAY(letterArray, self->m_label->m_pLetterArray)
 
 		if (!self->m_disableColor)
 			Coloring::parseTags(str, self->m_label->m_pLetterArray);
@@ -210,37 +208,37 @@ namespace Hooks {
 
 		MH_CreateHook(
 			(PVOID)(base + 0xF840),
-			assign_hk,
+            (PVOID)assign_hk,
 			(PVOID*)&assign_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x1907b0),
-			init_hk,
+            (PVOID)init_hk,
 			(PVOID*)&init_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x33480),
-			setString_hk,
+            (PVOID)setString_hk,
 			(PVOID*)&setString_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x138A0),
-			ButtonSprite_init_hk,
+            (PVOID)ButtonSprite_init_hk,
 			(PVOID*)&ButtonSprite_init_o
 		);
 
 		MH_CreateHook(
 			(PVOID)((int)GetProcAddress(cc_handle, "?openURL@CCApplication@cocos2d@@UAEXPBD@Z")),
-			openURL_hk,
+            (PVOID)openURL_hk,
 			(PVOID*)&openURL_o
 		);
 
 		MH_CreateHook(
 			(PVOID)(base + 0x3B200),
-			AchievementBar_init_hk,
+            (PVOID)AchievementBar_init_hk,
 			(PVOID*)&AchievementBar_init_o
 		);
 		

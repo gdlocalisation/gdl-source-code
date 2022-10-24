@@ -1,6 +1,6 @@
 #include "utils.hpp"
 
-bool patch(uintptr_t const address, const uint8_t* bytes) {
+bool patch(uintptr_t address, const uint8_t* bytes) {
     return WriteProcessMemory(
         GetCurrentProcess(),
         reinterpret_cast<LPVOID>(base + address),
@@ -17,18 +17,18 @@ bool isRusChar(uint32_t cp) {
     return false;
 }
 
-vector<std::string> SplitString(std::string s, char separator) {
-    std::string temp = "";
+vector<std::string> SplitString(const std::string& s, char separator) {
+    std::string temp;
     vector<std::string> v;
 
-    for (size_t i = 0; i < s.length(); ++i) {
+    for (char i : s) {
 
-        if (s[i] == separator) {
+        if (i == separator) {
             v.push_back(temp);
             temp = "";
         }
         else {
-            temp.push_back(s[i]);
+            temp.push_back(i);
         }
 
     }
@@ -37,7 +37,7 @@ vector<std::string> SplitString(std::string s, char separator) {
     return v;
 }
 
-std::string join_string(vector<std::string> strs, const char* delim) {
+std::string join_string(const vector<std::string>& strs, const char* delim) {
     std::string ret;
 
     for (size_t i = 0; i < strs.size(); i++) {
@@ -49,62 +49,41 @@ std::string join_string(vector<std::string> strs, const char* delim) {
     return ret;
 }
 
-std::string replaceRusCharsWithASCII(std::string str) {
-    std::string ret = "";
+std::string replaceRusCharsWithASCII(const std::string& str) {
+    std::string ret;
 
-    uint32_t cp = 0;
     auto b = str.begin();
     auto e = str.end();
     while (b != e) {
-        cp = utf8::next(b, e);
-
-        char c = cp;
+        auto cp = utf8::next(b, e);
 
         if (isRusChar(cp))
             ret += "E"; // basically any 1-byte char
         else
-            ret += c;
+            ret += (char)cp;
     }
 
     return ret;
 }
 
-//string getGDLVersion() {
-//    try {
-//        // you can pass http::InternetProtocol::V6 to Request to make an IPv6 request
-//        http::Request request{ "http://www.gdlocalisation.gq/gd/version" };
-//
-//        // send a get request
-//        const auto response = request.send("GET");
-//        return std::string{ response.body.begin(), response.body.end() };
-//    }
-//    catch (const std::exception& e)
-//    {
-//        log << "Uh oh: " << e.what();
-//        return "-1";
-//    }
-//}
-
-vector<std::string> splitByWidth(std::string src, float width, const char* fontName) {
-    std::string str = src;
+vector<std::string> splitByWidth(const std::string& src, float width, const char* fontName) {
     vector<std::string> ret;
 
     auto lbl = CCLabelBMFont::create("", fontName);
 
-    auto lines = SplitString(str, '\n');
+    auto lines = SplitString(src, '\n');
 
     for (auto line : lines)
     {
     loop_begin:
         std::string current;
-        uint32_t cp = 0;
         auto b = line.begin();
         auto e = line.end();
         bool overflowed = false;
         while (b != e) {
-            cp = utf8::next(b, e);
+            auto cp = utf8::next(b, e);
 
-            char c = cp;
+            auto c = (char)cp;
 
             if (isRusChar(cp))
                 current += ruslettersnums[cp];
@@ -121,10 +100,8 @@ vector<std::string> splitByWidth(std::string src, float width, const char* fontN
         if (overflowed && std::string(current).find(' ') != std::string::npos) {
             auto words = SplitString(lbl->getString(), ' ');
             words.pop_back();
-            //string a = join_string(words, " ");
             auto a = join_string(words, " ") + " ";
             ret.push_back(a);
-            //line = line.erase(0, a.length() + 1);
             line = line.erase(0, a.length());
             goto loop_begin;
         }
@@ -132,11 +109,6 @@ vector<std::string> splitByWidth(std::string src, float width, const char* fontN
             ret.push_back(current + " ");
         }
     }
-
-    //log << "- splitByWidth:";
-    //for (auto a : ret) {
-    //    log << "  - '" << a << "'";
-    //}
 
     return ret;
 }

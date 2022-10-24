@@ -1,11 +1,15 @@
 #pragma once
 
+// abusing unsafe functions
+#define _CRT_SECURE_NO_WARNINGS
 // system
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#undef _CRT_SECURE_NO_WARNINGS
 
 using std::cout, std::endl, std::tuple, std::vector;
 

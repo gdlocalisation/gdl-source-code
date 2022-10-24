@@ -3,14 +3,14 @@
 namespace Coloring {
 	std::string removeTags(std::string str, bool removeColors, bool removeDelay, bool removeInstant) {
 		if (removeColors) {
-			str = std::regex_replace(str, std::regex("\<c.\>"), ""); // no starting <cX>
-			str = std::regex_replace(str, std::regex("\</c\>"), ""); // no ending </c>
+			str = std::regex_replace(str, std::regex("<c.>"), ""); // no starting <cX>
+			str = std::regex_replace(str, std::regex("</c>"), ""); // no ending </c>
 		}
 		if (removeDelay)
-			str = std::regex_replace(str, std::regex("\<d...\>"), ""); // no <dXXX>
+			str = std::regex_replace(str, std::regex("<d...>"), ""); // no <dXXX>
 		if (removeInstant) {
-			str = std::regex_replace(str, std::regex("\<i\>"), ""); // no starting <i>
-			str = std::regex_replace(str, std::regex("\</i\>"), ""); // no ending </i>
+			str = std::regex_replace(str, std::regex("<i>"), ""); // no starting <i>
+			str = std::regex_replace(str, std::regex("</i>"), ""); // no ending </i>
 		}
 
 		return str;
@@ -22,15 +22,15 @@ namespace Coloring {
 		// colors
 		std::string modStr = removeTags(str, false);
 
-		int pos = 0;
+        size_t pos = 0;
 		while (true) {
-			int beginPos = modStr.find("<c", pos);
+			auto beginPos = modStr.find("<c", pos);
 			if (beginPos == std::string::npos)
 				break;
 
 			auto tag = modStr.at(beginPos + 2);
 
-			int endPos = modStr.find("</c>", pos);
+            auto endPos = modStr.find("</c>", pos);
 
 			ccColor3B col;
 
@@ -65,7 +65,7 @@ namespace Coloring {
 				col = { 0xFF, 0x00, 0x00 };
 			}
 
-			for (int i = beginPos; i < endPos - 4; i++) {
+			for (auto i = beginPos; i < endPos - 4; i++) {
 				if (i >= letters->count())
 					break;
 
@@ -83,11 +83,11 @@ namespace Coloring {
 
 		pos = 0;
 		while (true) {
-			int beginPos = modStr.find("<d", pos);
+            auto beginPos = modStr.find("<d", pos);
 			if (beginPos == std::string::npos)
 				break;
 
-			float delay = (atoi(modStr.substr(beginPos + 2, 5).c_str())) / 100.0f;
+            auto delay = (float)(atoi(modStr.substr(beginPos + 2, 5).c_str())) / 100.0f;
 
 			if (beginPos < letters->count())
 				dynamic_cast<CCSprite*>(letters->objectAtIndex(beginPos))->m_nUnknown = *(int*)&delay;
@@ -102,13 +102,13 @@ namespace Coloring {
 
 		pos = 0;
 		while (true) {
-			int beginPos = modStr.find("<i>", pos);
+            auto beginPos = modStr.find("<i>", pos);
 			if (beginPos == std::string::npos)
 				break;
 
-			int endPos = modStr.find("</i>", pos);
+            auto endPos = modStr.find("</i>", pos);
 
-			for (int i = beginPos; i < endPos - 3; i++) {
+			for (auto i = beginPos; i < endPos - 3; i++) {
 				if (i >= letters->count())
 					break;
 
