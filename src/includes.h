@@ -7,8 +7,7 @@
 #include <string>
 #include <Windows.h>
 
-using std::cout, std::endl, std::tuple,
-      std::string, std::vector;
+using std::cout, std::endl, std::tuple, std::vector;
 
 // cocos2d
 #pragma warning(push, 0)
@@ -29,7 +28,7 @@ using namespace gd;
 #include "utf8.h"
 
 // json lib
-#include "json/json.hpp"
+#include <nlohmann/json.hpp>
 using namespace nlohmann;
 
 // defines

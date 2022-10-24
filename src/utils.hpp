@@ -21,16 +21,16 @@ bool patch(uintptr_t const address, const uint8_t* bytes);
 
 bool isRusChar(uint32_t cp);
 
-vector<string> SplitString(string s, char separator);
+vector<std::string> SplitString(std::string s, char separator);
 
-string join_string(vector<string> strs, const char* delim);
+std::string join_string(vector<std::string> strs, const char* delim);
 
-string replaceRusCharsWithASCII(string str);
+std::string replaceRusCharsWithASCII(std::string str);
 
-vector<string> splitByWidth(string src, float width, const char* fontName);
+vector<std::string> splitByWidth(std::string src, float width, const char* fontName);
 
 // generated with python =)
-std::map<uint32_t, string> ruslettersnums = {
+static std::map<uint32_t, std::string> ruslettersnums = {
     {1025, u8"\u0401"},
     {1105, u8"\u0451"},
     {1040, u8"\u0410"},

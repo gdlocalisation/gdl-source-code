@@ -17,9 +17,9 @@ bool isRusChar(uint32_t cp) {
     return false;
 }
 
-vector<string> SplitString(string s, char separator) {
-    string temp = "";
-    vector<string> v;
+vector<std::string> SplitString(std::string s, char separator) {
+    std::string temp = "";
+    vector<std::string> v;
 
     for (size_t i = 0; i < s.length(); ++i) {
 
@@ -37,20 +37,20 @@ vector<string> SplitString(string s, char separator) {
     return v;
 }
 
-string join_string(vector<string> strs, const char* delim) {
-    string ret;
+std::string join_string(vector<std::string> strs, const char* delim) {
+    std::string ret;
 
     for (size_t i = 0; i < strs.size(); i++) {
         auto s = strs[i];
-        string toAdd = (i != strs.size() - 1) ? (s + delim) : (s);
+        auto toAdd = (i != strs.size() - 1) ? (s + delim) : (s);
         ret += toAdd;
     }
 
     return ret;
 }
 
-string replaceRusCharsWithASCII(string str) {
-    string ret = "";
+std::string replaceRusCharsWithASCII(std::string str) {
+    std::string ret = "";
 
     uint32_t cp = 0;
     auto b = str.begin();
@@ -85,9 +85,9 @@ string replaceRusCharsWithASCII(string str) {
 //    }
 //}
 
-vector<string> splitByWidth(string src, float width, const char* fontName) {
-    string str = src;
-    vector<string> ret;
+vector<std::string> splitByWidth(std::string src, float width, const char* fontName) {
+    std::string str = src;
+    vector<std::string> ret;
 
     auto lbl = CCLabelBMFont::create("", fontName);
 
@@ -96,7 +96,7 @@ vector<string> splitByWidth(string src, float width, const char* fontName) {
     for (auto line : lines)
     {
     loop_begin:
-        string current;
+        std::string current;
         uint32_t cp = 0;
         auto b = line.begin();
         auto e = line.end();
@@ -118,11 +118,11 @@ vector<string> splitByWidth(string src, float width, const char* fontName) {
             }
         }
 
-        if (overflowed && string(current).find(' ') != string::npos) {
+        if (overflowed && std::string(current).find(' ') != std::string::npos) {
             auto words = SplitString(lbl->getString(), ' ');
             words.pop_back();
             //string a = join_string(words, " ");
-            string a = join_string(words, " ") + " ";
+            auto a = join_string(words, " ") + " ";
             ret.push_back(a);
             //line = line.erase(0, a.length() + 1);
             line = line.erase(0, a.length());

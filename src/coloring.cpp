@@ -1,7 +1,7 @@
 #include "coloring.h"
 
 namespace Coloring {
-	string removeTags(string str, bool removeColors, bool removeDelay, bool removeInstant) {
+	std::string removeTags(std::string str, bool removeColors, bool removeDelay, bool removeInstant) {
 		if (removeColors) {
 			str = std::regex_replace(str, std::regex("\<c.\>"), ""); // no starting <cX>
 			str = std::regex_replace(str, std::regex("\</c\>"), ""); // no ending </c>
@@ -16,16 +16,16 @@ namespace Coloring {
 		return str;
 	}
 
-	void parseTags(string str, CCArray* letters) {
+	void parseTags(std::string str, CCArray* letters) {
 		str = replaceRusCharsWithASCII(str);
 
 		// colors
-		string modStr = removeTags(str, false);
+		std::string modStr = removeTags(str, false);
 
 		int pos = 0;
 		while (true) {
 			int beginPos = modStr.find("<c", pos);
-			if (beginPos == string::npos)
+			if (beginPos == std::string::npos)
 				break;
 
 			auto tag = modStr.at(beginPos + 2);
@@ -84,13 +84,13 @@ namespace Coloring {
 		pos = 0;
 		while (true) {
 			int beginPos = modStr.find("<d", pos);
-			if (beginPos == string::npos)
+			if (beginPos == std::string::npos)
 				break;
 
 			float delay = (atoi(modStr.substr(beginPos + 2, 5).c_str())) / 100.0f;
 
 			if (beginPos < letters->count())
-				dynamic_cast<CCSprite*>(letters->objectAtIndex(beginPos))->m_fDelay = delay;
+				dynamic_cast<CCSprite*>(letters->objectAtIndex(beginPos))->m_nUnknown = *(int*)&delay;
 
 			modStr.erase(modStr.begin() + beginPos, modStr.begin() + beginPos + 6);
 
@@ -103,7 +103,7 @@ namespace Coloring {
 		pos = 0;
 		while (true) {
 			int beginPos = modStr.find("<i>", pos);
-			if (beginPos == string::npos)
+			if (beginPos == std::string::npos)
 				break;
 
 			int endPos = modStr.find("</i>", pos);
@@ -112,7 +112,7 @@ namespace Coloring {
 				if (i >= letters->count())
 					break;
 
-				dynamic_cast<CCSprite*>(letters->objectAtIndex(i))->m_bVisible = true;
+				dynamic_cast<CCSprite*>(letters->objectAtIndex(i))->setVisible(true);
 			}
 
 			modStr.erase(modStr.begin() + beginPos, modStr.begin() + beginPos + 3); // remove the <i>
