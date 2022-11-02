@@ -1,23 +1,23 @@
 #include "coloring.h"
 
-namespace Coloring {
+namespace coloring {
 	string removeTags(string str, bool removeColors, bool removeDelay, bool removeInstant) {
 		if (removeColors) {
-			str = std::regex_replace(str, std::regex("\<c.\>"), ""); // no starting <cX>
-			str = std::regex_replace(str, std::regex("\</c\>"), ""); // no ending </c>
+			str = std::regex_replace(str, std::regex("<c.>"), ""); // no starting <cX>
+			str = std::regex_replace(str, std::regex("</c>"), ""); // no ending </c>
 		}
 		if (removeDelay)
-			str = std::regex_replace(str, std::regex("\<d...\>"), ""); // no <dXXX>
+			str = std::regex_replace(str, std::regex("<d...>"), ""); // no <dXXX>
 		if (removeInstant) {
-			str = std::regex_replace(str, std::regex("\<i\>"), ""); // no starting <i>
-			str = std::regex_replace(str, std::regex("\</i\>"), ""); // no ending </i>
+			str = std::regex_replace(str, std::regex("<i>"), ""); // no starting <i>
+			str = std::regex_replace(str, std::regex("</i>"), ""); // no ending </i>
 		}
 
 		return str;
 	}
 
 	void parseTags(string str, CCArray* letters) {
-		str = replaceRusCharsWithASCII(str);
+		str = utils::replaceUnicode(str);
 
 		// colors
 		string modStr = removeTags(str, false);
@@ -116,7 +116,7 @@ namespace Coloring {
 			}
 
 			modStr.erase(modStr.begin() + beginPos, modStr.begin() + beginPos + 3); // remove the <i>
-			modStr.erase(modStr.begin() + endPos - 3, modStr.begin() + endPos); // remote the </i>
+			modStr.erase(modStr.begin() + endPos - 3, modStr.begin() + endPos); // remove the </i>
 
 			pos = beginPos + 1;
 		}

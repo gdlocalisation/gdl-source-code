@@ -33,252 +33,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="minhook\src\buffer.h">
-      <Filter>Header Files\minhook</Filter>
-    </ClInclude>
-    <ClInclude Include="minhook\src\hde\hde32.h">
-      <Filter>Header Files\minhook</Filter>
-    </ClInclude>
-    <ClInclude Include="minhook\src\hde\hde64.h">
-      <Filter>Header Files\minhook</Filter>
-    </ClInclude>
-    <ClInclude Include="minhook\include\MinHook.h">
-      <Filter>Header Files\minhook</Filter>
-    </ClInclude>
-    <ClInclude Include="minhook\src\hde\pstdint.h">
-      <Filter>Header Files\minhook</Filter>
-    </ClInclude>
-    <ClInclude Include="minhook\src\hde\table32.h">
-      <Filter>Header Files\minhook</Filter>
-    </ClInclude>
-    <ClInclude Include="minhook\src\hde\table64.h">
-      <Filter>Header Files\minhook</Filter>
-    </ClInclude>
-    <ClInclude Include="minhook\src\trampoline.h">
-      <Filter>Header Files\minhook</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\achievement_nodes\AchievementBar.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\AchievementManager.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\achievement_nodes\AchievementNotifier.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\AnimatedShopKeeper.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\scroll_nodes\BoomListView.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\ButtonSprite.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\CCAnimatedSprite.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\CCBlockLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\actions\CCCircleWave.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\scroll_nodes\CCContentLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\scroll_nodes\CCIndexPath.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\menu_nodes\CCMenuItemSpriteExtra.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\menu_nodes\CCMenuItemToggler.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\CCNodeContainer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\scroll_nodes\CCScrollLayerExt.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\CCSpritePlus.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\text_input_nodes\CCTextInputNode.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\other_nodes\CheckpointObject.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\level_nodes\ColorAction.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\ColorActionSprite.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\scroll_nodes\CustomListView.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\CustomSongLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\CustomSongWidget.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\delegates\delegates.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\EditorUI.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\FLAlertLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\audio_nodes\FMODAudioEngine.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\audio_nodes\FMODSound.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\GameLevelManager.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\GameManager.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\GameObject.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\GameSoundManager.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\include\gd.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\include\gdMacros.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\include\GDProtocols.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\GJAccountManager.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\GJBaseGameLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\GJDropDownLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\GJEffectManager.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\level_nodes\GJGameLevel.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\GJItemIcon.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\GJListLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\GJRobotSprite.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\level_nodes\GJSearchObject.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\GJSpecialColorSelect.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\GJSpiderSprite.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\GJSpriteColor.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\GJUserScore.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\GManager.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\HardStreak.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\LevelEditorLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\level_nodes\LevelSettingsObject.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\LoadingCircle.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\LoadingLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\LocalLevelManager.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\MenuLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\MusicDownloadManager.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\NumberInputLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\OBB2D.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\manager_nodes\ObjectToolbox.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\PauseLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\other_nodes\PlayerCheckpoint.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\PlayerObject.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\PlayLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\other_nodes\PointNode.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\scroll_nodes\ScrollingLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\SetIDPopup.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\SimplePlayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\menu_nodes\Slider.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\SongInfoLayer.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\level_nodes\SongInfoObject.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\scroll_nodes\TableView.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\TextAlertPopup.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
-    <ClInclude Include="gd.h\sprite_nodes\TextArea.h">
-      <Filter>Header Files\gd.h</Filter>
-    </ClInclude>
     <ClInclude Include="extensions\spine\Animation.h">
       <Filter>Header Files\cocos2d</Filter>
     </ClInclude>
@@ -4332,13 +4086,13 @@
     <ClInclude Include="utf8\unchecked.h">
       <Filter>Header Files\utf8</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hooks.hpp">
+    <ClInclude Include="src\hooks.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="json\json.hpp">
       <Filter>Header Files\json</Filter>
     </ClInclude>
-    <ClInclude Include="src\Menu.hpp">
+    <ClInclude Include="src\menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BrownAlertDelegate.hpp">
@@ -4347,30 +4101,378 @@
     <ClInclude Include="src\coloring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="libraries\minhook\src\buffer.h">
+      <Filter>Header Files\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\minhook\src\hde\hde64.h">
+      <Filter>Header Files\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\minhook\src\hde\hde32.h">
+      <Filter>Header Files\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\minhook\src\hde\pstdint.h">
+      <Filter>Header Files\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\minhook\src\hde\table32.h">
+      <Filter>Header Files\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\minhook\src\hde\table64.h">
+      <Filter>Header Files\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\minhook\src\trampoline.h">
+      <Filter>Header Files\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\achievement_nodes\AchievementBar.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\AchievementManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\achievement_nodes\AchievementNotifier.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\AnimatedShopKeeper.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\scroll_nodes\BoomListView.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\ButtonSprite.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\CCAnimatedSprite.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CCBlockLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\actions\CCCircleWave.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\scroll_nodes\CCContentLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\scroll_nodes\CCIndexPath.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\menu_nodes\CCMenuItemSpriteExtra.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\menu_nodes\CCMenuItemToggler.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CCNodeContainer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\scroll_nodes\CCScrollLayerExt.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\CCSpritePlus.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\text_input_nodes\CCTextInputNode.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\ChallengesPage.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\other_nodes\CheckpointObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\level_nodes\ColorAction.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\ColorActionSprite.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\ColorChannelSprite.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\ColorSelectPopup.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CreateGuidelinesLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CreatorLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CustomizeObjectLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\scroll_nodes\CustomListView.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CustomSongLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CustomSongWidget.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\DailyLevelPage.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\delegates\delegates.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\DialogLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\other_nodes\DialogObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\DrawGridLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\EditorUI.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\EffectGameObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\FLAlertLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\audio_nodes\FMODAudioEngine.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\audio_nodes\FMODSound.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\GameLevelManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\GameManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GameObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\GameSoundManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\GameStatsManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\include\GameToolbox.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GaragePage.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GauntletSelectLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\include\gd.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\include\gdMacros.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\include\GDProtocols.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\GJAccountManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJBaseGameLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\cell_nodes\GJComment.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJDropDownLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\GJEffectManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\level_nodes\GJGameLevel.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJGarageLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GJItemIcon.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJListLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\level_nodes\GJMapPack.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\other_nodes\GJRewardObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GJRobotSprite.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJRotationControl.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJScaleControl.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\level_nodes\GJSearchObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJSpecialColorSelect.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GJSpiderSprite.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GJSpriteColor.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\GJUserScore.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\GManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\HardStreak.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\HSVWidgetPopup.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\menu_nodes\InfoAlertButton.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\InfoLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\KeybindingsLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LeaderboardsLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelBrowserLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelEditorLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelInfoLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelSearchLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelSelectLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\level_nodes\LevelSettingsObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\ListButtonBar.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LoadingCircle.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LoadingLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\LocalLevelManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\MenuLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\MoreOptionsLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\MusicDownloadManager.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\NumberInputLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\OBB2D.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\manager_nodes\ObjectToolbox.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\OptionsLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\PauseLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\other_nodes\PlayerCheckpoint.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\PlayerObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\PlayLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\other_nodes\PointNode.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\ProfilePage.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\scroll_nodes\ScrollingLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\SetGroupIDLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\SetIDPopup.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\trigger_popups\SetupPickupTriggerPopup.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\SetupPulsePopup.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\SimplePlayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\menu_nodes\Slider.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\SongInfoLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\level_nodes\SongInfoObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\scroll_nodes\TableView.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\TeleportPortalObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\TextAlertPopup.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\sprite_nodes\TextArea.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\other_nodes\UndoObject.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\VideoOptionsLayer.h">
+      <Filter>Header Files\gd.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="minhook\src\buffer.c">
-      <Filter>Source Files\minhook</Filter>
-    </ClCompile>
-    <ClCompile Include="minhook\src\hde\hde32.c">
-      <Filter>Source Files\minhook</Filter>
-    </ClCompile>
-    <ClCompile Include="minhook\src\hde\hde64.c">
-      <Filter>Source Files\minhook</Filter>
-    </ClCompile>
-    <ClCompile Include="minhook\src\hook.c">
-      <Filter>Source Files\minhook</Filter>
-    </ClCompile>
-    <ClCompile Include="minhook\src\trampoline.c">
-      <Filter>Source Files\minhook</Filter>
-    </ClCompile>
     <ClCompile Include="src\dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hooks.cpp">
+    <ClCompile Include="src\hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menu.cpp">
+    <ClCompile Include="src\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\utils.cpp">
@@ -4379,15 +4481,20 @@
     <ClCompile Include="src\coloring.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="minhook\dll_resources\MinHook.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="minhook\dll_resources\MinHook.def">
+    <ClCompile Include="libraries\minhook\src\buffer.c">
       <Filter>Source Files\minhook</Filter>
-    </None>
+    </ClCompile>
+    <ClCompile Include="libraries\minhook\src\hde\hde32.c">
+      <Filter>Source Files\minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\minhook\src\hde\hde64.c">
+      <Filter>Source Files\minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\minhook\src\hook.c">
+      <Filter>Source Files\minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\minhook\src\trampoline.c">
+      <Filter>Source Files\minhook</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

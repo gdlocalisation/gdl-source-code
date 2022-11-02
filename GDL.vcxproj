@@ -116,7 +116,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)gd.h\include;$(SolutionDir)src;$(SolutionDir);$(SolutionDir)utf8;$(SolutionDir)gd.h;$(SolutionDir)minhook\include;$(SolutionDir)cocos2dx\kazmath\include;$(SolutionDir)cocos2dx\include;$(SolutionDir)cocos2dx;$(SolutionDir)cocos2dx\platform\third_party\win32\OGLES;$(SolutionDir)cocos2dx\platform\third_party\win32;$(SolutionDir)cocos2dx\platform\win32;$(SolutionDir)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\gd.h\include;$(SolutionDir)libraries\gd.h;$(SolutionDir)libraries;$(SolutionDir)libraries\cocos2dx\kazmath\include;$(SolutionDir)libraries\cocos2dx\include;$(SolutionDir)libraries\cocos2dx;$(SolutionDir)libraries\cocos2dx\platform\third_party\win32\OGLES;$(SolutionDir)libraries\cocos2dx\platform\third_party\win32;$(SolutionDir)libraries\cocos2dx\platform\win32;$(SolutionDir)libraries\extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -125,7 +125,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>$(SolutionDir)cocos2dx/libcocos2d.lib;$(SolutionDir)extensions/libExtensions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)libraries/cocos2dx/libcocos2d.lib;$(SolutionDir)libraries/extensions/libExtensions.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
@@ -1513,94 +1513,133 @@ copy "$(SolutionDir)Build\$(Configuration)\$(ProjectName).dll" "D:\SteamLibrary\
     <ClInclude Include="extensions\spine\SlotData.h" />
     <ClInclude Include="extensions\spine\spine-cocos2dx.h" />
     <ClInclude Include="extensions\spine\spine.h" />
-    <ClInclude Include="gd.h\achievement_nodes\AchievementBar.h" />
-    <ClInclude Include="gd.h\achievement_nodes\AchievementNotifier.h" />
-    <ClInclude Include="gd.h\actions\CCCircleWave.h" />
-    <ClInclude Include="gd.h\audio_nodes\FMODAudioEngine.h" />
-    <ClInclude Include="gd.h\audio_nodes\FMODSound.h" />
-    <ClInclude Include="gd.h\delegates\delegates.h" />
-    <ClInclude Include="gd.h\include\gd.h" />
-    <ClInclude Include="gd.h\include\gdMacros.h" />
-    <ClInclude Include="gd.h\include\GDProtocols.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\CCBlockLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\CCNodeContainer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\CustomSongLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\CustomSongWidget.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\EditorUI.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\FLAlertLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\GJBaseGameLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\GJDropDownLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\GJListLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\GJSpecialColorSelect.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\LevelEditorLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\LoadingCircle.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\LoadingLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\MenuLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\NumberInputLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\OBB2D.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\PauseLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\PlayLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\SetIDPopup.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\SongInfoLayer.h" />
-    <ClInclude Include="gd.h\layers_scenes_transitions_nodes\TextAlertPopup.h" />
-    <ClInclude Include="gd.h\level_nodes\ColorAction.h" />
-    <ClInclude Include="gd.h\level_nodes\GJGameLevel.h" />
-    <ClInclude Include="gd.h\level_nodes\GJSearchObject.h" />
-    <ClInclude Include="gd.h\level_nodes\LevelSettingsObject.h" />
-    <ClInclude Include="gd.h\level_nodes\SongInfoObject.h" />
-    <ClInclude Include="gd.h\manager_nodes\AchievementManager.h" />
-    <ClInclude Include="gd.h\manager_nodes\GameLevelManager.h" />
-    <ClInclude Include="gd.h\manager_nodes\GameManager.h" />
-    <ClInclude Include="gd.h\manager_nodes\GameSoundManager.h" />
-    <ClInclude Include="gd.h\manager_nodes\GJAccountManager.h" />
-    <ClInclude Include="gd.h\manager_nodes\GJEffectManager.h" />
-    <ClInclude Include="gd.h\manager_nodes\GJUserScore.h" />
-    <ClInclude Include="gd.h\manager_nodes\GManager.h" />
-    <ClInclude Include="gd.h\manager_nodes\LocalLevelManager.h" />
-    <ClInclude Include="gd.h\manager_nodes\MusicDownloadManager.h" />
-    <ClInclude Include="gd.h\manager_nodes\ObjectToolbox.h" />
-    <ClInclude Include="gd.h\menu_nodes\CCMenuItemSpriteExtra.h" />
-    <ClInclude Include="gd.h\menu_nodes\CCMenuItemToggler.h" />
-    <ClInclude Include="gd.h\menu_nodes\Slider.h" />
-    <ClInclude Include="gd.h\other_nodes\CheckpointObject.h" />
-    <ClInclude Include="gd.h\other_nodes\PlayerCheckpoint.h" />
-    <ClInclude Include="gd.h\other_nodes\PointNode.h" />
-    <ClInclude Include="gd.h\scroll_nodes\BoomListView.h" />
-    <ClInclude Include="gd.h\scroll_nodes\CCContentLayer.h" />
-    <ClInclude Include="gd.h\scroll_nodes\CCIndexPath.h" />
-    <ClInclude Include="gd.h\scroll_nodes\CCScrollLayerExt.h" />
-    <ClInclude Include="gd.h\scroll_nodes\CustomListView.h" />
-    <ClInclude Include="gd.h\scroll_nodes\ScrollingLayer.h" />
-    <ClInclude Include="gd.h\scroll_nodes\TableView.h" />
-    <ClInclude Include="gd.h\sprite_nodes\AnimatedShopKeeper.h" />
-    <ClInclude Include="gd.h\sprite_nodes\ButtonSprite.h" />
-    <ClInclude Include="gd.h\sprite_nodes\CCAnimatedSprite.h" />
-    <ClInclude Include="gd.h\sprite_nodes\CCSpritePlus.h" />
-    <ClInclude Include="gd.h\sprite_nodes\ColorActionSprite.h" />
-    <ClInclude Include="gd.h\sprite_nodes\GameObject.h" />
-    <ClInclude Include="gd.h\sprite_nodes\GJItemIcon.h" />
-    <ClInclude Include="gd.h\sprite_nodes\GJRobotSprite.h" />
-    <ClInclude Include="gd.h\sprite_nodes\GJSpiderSprite.h" />
-    <ClInclude Include="gd.h\sprite_nodes\GJSpriteColor.h" />
-    <ClInclude Include="gd.h\sprite_nodes\HardStreak.h" />
-    <ClInclude Include="gd.h\sprite_nodes\PlayerObject.h" />
-    <ClInclude Include="gd.h\sprite_nodes\SimplePlayer.h" />
-    <ClInclude Include="gd.h\sprite_nodes\TextArea.h" />
-    <ClInclude Include="gd.h\text_input_nodes\CCTextInputNode.h" />
     <ClInclude Include="json\json.hpp" />
-    <ClInclude Include="minhook\include\MinHook.h" />
-    <ClInclude Include="minhook\src\buffer.h" />
-    <ClInclude Include="minhook\src\hde\hde32.h" />
-    <ClInclude Include="minhook\src\hde\hde64.h" />
-    <ClInclude Include="minhook\src\hde\pstdint.h" />
-    <ClInclude Include="minhook\src\hde\table32.h" />
-    <ClInclude Include="minhook\src\hde\table64.h" />
-    <ClInclude Include="minhook\src\trampoline.h" />
+    <ClInclude Include="libraries\gd.h\achievement_nodes\AchievementBar.h" />
+    <ClInclude Include="libraries\gd.h\achievement_nodes\AchievementNotifier.h" />
+    <ClInclude Include="libraries\gd.h\actions\CCCircleWave.h" />
+    <ClInclude Include="libraries\gd.h\audio_nodes\FMODAudioEngine.h" />
+    <ClInclude Include="libraries\gd.h\audio_nodes\FMODSound.h" />
+    <ClInclude Include="libraries\gd.h\cell_nodes\GJComment.h" />
+    <ClInclude Include="libraries\gd.h\delegates\delegates.h" />
+    <ClInclude Include="libraries\gd.h\include\GameToolbox.h" />
+    <ClInclude Include="libraries\gd.h\include\gd.h" />
+    <ClInclude Include="libraries\gd.h\include\gdMacros.h" />
+    <ClInclude Include="libraries\gd.h\include\GDProtocols.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CCBlockLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CCNodeContainer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\ChallengesPage.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\ColorSelectPopup.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CreateGuidelinesLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CreatorLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CustomizeObjectLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CustomSongLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\CustomSongWidget.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\DailyLevelPage.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\DialogLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\DrawGridLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\EditorUI.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\FLAlertLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GaragePage.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GauntletSelectLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJBaseGameLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJDropDownLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJGarageLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJListLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJRotationControl.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJScaleControl.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\GJSpecialColorSelect.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\HSVWidgetPopup.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\InfoLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\KeybindingsLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LeaderboardsLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelBrowserLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelEditorLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelInfoLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelSearchLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LevelSelectLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\ListButtonBar.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LoadingCircle.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\LoadingLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\MenuLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\MoreOptionsLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\NumberInputLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\OBB2D.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\OptionsLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\PauseLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\PlayLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\ProfilePage.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\SetGroupIDLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\SetIDPopup.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\SetupPulsePopup.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\SongInfoLayer.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\TextAlertPopup.h" />
+    <ClInclude Include="libraries\gd.h\layers_scenes_transitions_nodes\VideoOptionsLayer.h" />
+    <ClInclude Include="libraries\gd.h\level_nodes\ColorAction.h" />
+    <ClInclude Include="libraries\gd.h\level_nodes\GJGameLevel.h" />
+    <ClInclude Include="libraries\gd.h\level_nodes\GJMapPack.h" />
+    <ClInclude Include="libraries\gd.h\level_nodes\GJSearchObject.h" />
+    <ClInclude Include="libraries\gd.h\level_nodes\LevelSettingsObject.h" />
+    <ClInclude Include="libraries\gd.h\level_nodes\SongInfoObject.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\AchievementManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\GameLevelManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\GameManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\GameSoundManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\GameStatsManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\GJAccountManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\GJEffectManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\GJUserScore.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\GManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\LocalLevelManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\MusicDownloadManager.h" />
+    <ClInclude Include="libraries\gd.h\manager_nodes\ObjectToolbox.h" />
+    <ClInclude Include="libraries\gd.h\menu_nodes\CCMenuItemSpriteExtra.h" />
+    <ClInclude Include="libraries\gd.h\menu_nodes\CCMenuItemToggler.h" />
+    <ClInclude Include="libraries\gd.h\menu_nodes\InfoAlertButton.h" />
+    <ClInclude Include="libraries\gd.h\menu_nodes\Slider.h" />
+    <ClInclude Include="libraries\gd.h\other_nodes\CheckpointObject.h" />
+    <ClInclude Include="libraries\gd.h\other_nodes\DialogObject.h" />
+    <ClInclude Include="libraries\gd.h\other_nodes\GJRewardObject.h" />
+    <ClInclude Include="libraries\gd.h\other_nodes\PlayerCheckpoint.h" />
+    <ClInclude Include="libraries\gd.h\other_nodes\PointNode.h" />
+    <ClInclude Include="libraries\gd.h\other_nodes\UndoObject.h" />
+    <ClInclude Include="libraries\gd.h\scroll_nodes\BoomListView.h" />
+    <ClInclude Include="libraries\gd.h\scroll_nodes\CCContentLayer.h" />
+    <ClInclude Include="libraries\gd.h\scroll_nodes\CCIndexPath.h" />
+    <ClInclude Include="libraries\gd.h\scroll_nodes\CCScrollLayerExt.h" />
+    <ClInclude Include="libraries\gd.h\scroll_nodes\CustomListView.h" />
+    <ClInclude Include="libraries\gd.h\scroll_nodes\ScrollingLayer.h" />
+    <ClInclude Include="libraries\gd.h\scroll_nodes\TableView.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\AnimatedShopKeeper.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\ButtonSprite.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\CCAnimatedSprite.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\CCSpritePlus.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\ColorActionSprite.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\ColorChannelSprite.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\EffectGameObject.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GameObject.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GJItemIcon.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GJRobotSprite.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GJSpiderSprite.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\GJSpriteColor.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\HardStreak.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\PlayerObject.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\SimplePlayer.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\TeleportPortalObject.h" />
+    <ClInclude Include="libraries\gd.h\sprite_nodes\TextArea.h" />
+    <ClInclude Include="libraries\gd.h\text_input_nodes\CCTextInputNode.h" />
+    <ClInclude Include="libraries\gd.h\trigger_popups\SetupPickupTriggerPopup.h" />
+    <ClInclude Include="libraries\minhook\src\buffer.h" />
+    <ClInclude Include="libraries\minhook\src\hde\hde32.h" />
+    <ClInclude Include="libraries\minhook\src\hde\hde64.h" />
+    <ClInclude Include="libraries\minhook\src\hde\pstdint.h" />
+    <ClInclude Include="libraries\minhook\src\hde\table32.h" />
+    <ClInclude Include="libraries\minhook\src\hde\table64.h" />
+    <ClInclude Include="libraries\minhook\src\trampoline.h" />
     <ClInclude Include="src\BrownAlertDelegate.hpp" />
     <ClInclude Include="src\coloring.h" />
-    <ClInclude Include="src\Hooks.hpp" />
+    <ClInclude Include="src\hooks.hpp" />
     <ClInclude Include="src\includes.h" />
-    <ClInclude Include="src\Menu.hpp" />
+    <ClInclude Include="src\menu.hpp" />
     <ClInclude Include="src\utils.hpp" />
     <ClInclude Include="utf8\checked.h" />
     <ClInclude Include="utf8\core.h" />
@@ -1608,22 +1647,16 @@ copy "$(SolutionDir)Build\$(Configuration)\$(ProjectName).dll" "D:\SteamLibrary\
     <ClInclude Include="utf8\utf8.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="minhook\src\buffer.c" />
-    <ClCompile Include="minhook\src\hde\hde32.c" />
-    <ClCompile Include="minhook\src\hde\hde64.c" />
-    <ClCompile Include="minhook\src\hook.c" />
-    <ClCompile Include="minhook\src\trampoline.c" />
+    <ClCompile Include="libraries\minhook\src\buffer.c" />
+    <ClCompile Include="libraries\minhook\src\hde\hde32.c" />
+    <ClCompile Include="libraries\minhook\src\hde\hde64.c" />
+    <ClCompile Include="libraries\minhook\src\hook.c" />
+    <ClCompile Include="libraries\minhook\src\trampoline.c" />
     <ClCompile Include="src\coloring.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
-    <ClCompile Include="src\Hooks.cpp" />
-    <ClCompile Include="src\Menu.cpp" />
+    <ClCompile Include="src\hooks.cpp" />
+    <ClCompile Include="src\menu.cpp" />
     <ClCompile Include="src\utils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="minhook\dll_resources\MinHook.def" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="minhook\dll_resources\MinHook.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

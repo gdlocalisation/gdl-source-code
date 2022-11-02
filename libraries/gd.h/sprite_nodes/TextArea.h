@@ -2,7 +2,7 @@
 #define __TEXTAREA_H__
 
 #include <gd.h>
-#include <includes.h>
+//#include "../../src/includes.h"
 
 namespace gd {
 	#pragma runtime_checks("s", off)
@@ -28,17 +28,14 @@ namespace gd {
 		) {
 			__asm movss xmm1, scale;
 			__asm movss xmm2, width;
-			cout << 1 << endl;
 
 			auto pRet = reinterpret_cast
 				//<MultilineBitmapFont* (__vectorcall*)(const char*, float, float, float, float, bool, std::string, cocos2d::CCPoint)>
 				<MultilineBitmapFont* (__vectorcall*)(const char*, bool, std::string, cocos2d::CCPoint)>
 				(base + 0x2A5B0)
 				(fontName, bColourEnabled, str, anchorPoint);
-			cout << 2 << endl;
 
 			__asm add esp, 0x24;
-			cout << 3 << endl;
 
 			return pRet;
 		}
@@ -63,10 +60,9 @@ namespace gd {
 		int m_unknown;					// 0x1f0 // 0x1ED
 		std::string m_fontFile;			// 0x1f4 // 
 		float m_height;					// 0x20c
-		float f1;
-		float f2;
-		float f3;
-		float f4;
+		//float f1;
+		PAD(0x4);
+		cocos2d::CCPoint m_anchorPoint;
 
 		//bool m_disableColor;
 		//MultilineBitmapFont* m_label;

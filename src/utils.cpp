@@ -1,142 +1,171 @@
 #include "utils.hpp"
 
-bool patch(uintptr_t const address, const uint8_t* bytes) {
-    return WriteProcessMemory(
-        GetCurrentProcess(),
-        reinterpret_cast<LPVOID>(base + address),
-        &bytes,
-        sizeof(bytes),
-        nullptr
-    );
-}
+namespace utils {
+    bool patch(uintptr_t const address, const uint8_t* bytes) {
+        return WriteProcessMemory(
+            GetCurrentProcess(),
+            reinterpret_cast<LPVOID>(base + address),
+            &bytes,
+            sizeof(bytes),
+            nullptr
+        );
+    }
 
-bool isRusChar(uint32_t cp) {
-    if ((0x410 <= cp && cp <= 0x44F) || cp == 0x401 || cp == 0x451)
-        return true;
+    bool isUnicodeChar(int cp) {
+        return isascii(cp) ? false : true;
+    }
 
-    return false;
-}
+    vector<string> splitString(string str, char separator) {
+        string temp = "";
+        vector<string> v;
 
-vector<string> SplitString(string s, char separator) {
-    string temp = "";
-    vector<string> v;
+        for (size_t i = 0; i < str.length(); ++i) {
+            if (str[i] == separator) {
+                v.push_back(temp);
+                temp = "";
+            }
+            else {
+                temp.push_back(str[i]);
+            }
 
-    for (size_t i = 0; i < s.length(); ++i) {
-
-        if (s[i] == separator) {
-            v.push_back(temp);
-            temp = "";
         }
-        else {
-            temp.push_back(s[i]);
+        v.push_back(temp);
+
+        return v;
+    }
+
+    string joinStrings(vector<string> strings, const char* delim) {
+        string ret;
+
+        for (size_t i = 0; i < strings.size(); i++) {
+            auto str = strings[i];
+            ret += (i != strings.size() - 1) ? str + delim : str;
         }
 
-    }
-    v.push_back(temp);
-
-    return v;
-}
-
-string join_string(vector<string> strs, const char* delim) {
-    string ret;
-
-    for (size_t i = 0; i < strs.size(); i++) {
-        auto s = strs[i];
-        string toAdd = (i != strs.size() - 1) ? (s + delim) : (s);
-        ret += toAdd;
+        return ret;
     }
 
-    return ret;
-}
+    string replaceUnicode(string str) {
+        string ret = "";
 
-string replaceRusCharsWithASCII(string str) {
-    string ret = "";
-
-    uint32_t cp = 0;
-    auto b = str.begin();
-    auto e = str.end();
-    while (b != e) {
-        cp = utf8::next(b, e);
-
-        char c = cp;
-
-        if (isRusChar(cp))
-            ret += "E"; // basically any 1-byte char
-        else
-            ret += c;
-    }
-
-    return ret;
-}
-
-//string getGDLVersion() {
-//    try {
-//        // you can pass http::InternetProtocol::V6 to Request to make an IPv6 request
-//        http::Request request{ "http://www.gdlocalisation.gq/gd/version" };
-//
-//        // send a get request
-//        const auto response = request.send("GET");
-//        return std::string{ response.body.begin(), response.body.end() };
-//    }
-//    catch (const std::exception& e)
-//    {
-//        log << "Uh oh: " << e.what();
-//        return "-1";
-//    }
-//}
-
-vector<string> splitByWidth(string src, float width, const char* fontName) {
-    string str = src;
-    vector<string> ret;
-
-    auto lbl = CCLabelBMFont::create("", fontName);
-
-    auto lines = SplitString(str, '\n');
-
-    for (auto line : lines)
-    {
-    loop_begin:
-        string current;
         uint32_t cp = 0;
-        auto b = line.begin();
-        auto e = line.end();
-        bool overflowed = false;
+        auto b = str.begin();
+        auto e = str.end();
         while (b != e) {
             cp = utf8::next(b, e);
 
-            char c = cp;
-
-            if (isRusChar(cp))
-                current += ruslettersnums[cp];
-            else
-                current += c;
-
-            lbl->setString(current.c_str());
-            if (lbl->getScaledContentSize().width > width) {
-                overflowed = true;
-                break;
-            }
+            ret += isUnicodeChar(cp) ? 'E' : char(cp); // it should be a 1-byte so it doesnt mess up with counting symbols
         }
 
-        if (overflowed && string(current).find(' ') != string::npos) {
-            auto words = SplitString(lbl->getString(), ' ');
-            words.pop_back();
-            //string a = join_string(words, " ");
-            string a = join_string(words, " ") + " ";
-            ret.push_back(a);
-            //line = line.erase(0, a.length() + 1);
-            line = line.erase(0, a.length());
-            goto loop_begin;
+        return ret;
+    }
+
+    void getUnicodeChar(unsigned int code, char chars[5]) {
+        if (code <= 0x7F) {
+            chars[0] = (code & 0x7F); chars[1] = '\0';
+        }
+        else if (code <= 0x7FF) {
+            // one continuation byte
+            chars[1] = 0x80 | (code & 0x3F); code = (code >> 6);
+            chars[0] = 0xC0 | (code & 0x1F); chars[2] = '\0';
+        }
+        else if (code <= 0xFFFF) {
+            // two continuation bytes
+            chars[2] = 0x80 | (code & 0x3F); code = (code >> 6);
+            chars[1] = 0x80 | (code & 0x3F); code = (code >> 6);
+            chars[0] = 0xE0 | (code & 0xF); chars[3] = '\0';
+        }
+        else if (code <= 0x10FFFF) {
+            // three continuation bytes
+            chars[3] = 0x80 | (code & 0x3F); code = (code >> 6);
+            chars[2] = 0x80 | (code & 0x3F); code = (code >> 6);
+            chars[1] = 0x80 | (code & 0x3F); code = (code >> 6);
+            chars[0] = 0xF0 | (code & 0x7); chars[4] = '\0';
         }
         else {
-            ret.push_back(current + " ");
+            // unicode replacement character
+            chars[2] = 0xEF; chars[1] = 0xBF; chars[0] = 0xBD;
+            chars[3] = '\0';
         }
     }
 
-    //log << "- splitByWidth:";
-    //for (auto a : ret) {
-    //    log << "  - '" << a << "'";
-    //}
+    vector<string> splitByWidth(string src, float width, string fontName) {
+        string str = src;
+        vector<string> ret;
 
-    return ret;
+        auto lines = splitString(str, '\n');
+
+        for (auto line : lines) {
+            auto lbl = CCLabelBMFont::create("", fontName.c_str());            
+
+            while (line.size()) {
+                bool overflown = false;
+                string current;
+
+                int cp = 0;
+                auto b = line.begin();
+                auto e = line.end();
+                while (b != e) {
+                    cp = utf8::next(b, e);
+
+                    char chars[5] = { "\0" };
+                    getUnicodeChar(cp, chars);
+                    current += chars;
+
+                    lbl->setString(current.c_str());
+
+                    if (lbl->getContentSize().width > width) {
+                        overflown = true;
+                        break;
+                    }
+                }
+
+                if (overflown && current.find(' ') != string::npos) {
+                    auto words = splitString(current, ' ');
+                    words.pop_back();
+                    current = joinStrings(words, " ") + " ";
+                    ret.push_back(current);
+                    line = line.erase(0, current.length());
+                }
+                else {
+                    current += " ";
+                    ret.push_back(current);
+                    line = line.erase(0, current.length());
+                }
+            }
+        }
+
+        //log << "- splitByWidth:";
+        //for (auto a : ret) {
+        //    log << "  - '" << a << "'";
+        //}
+
+        return ret;
+    }
+
+    json loadJson(const char* name)
+    {
+        std::ifstream translationFileStream(name);
+
+        if (translationFileStream.is_open())
+        {
+            try {
+                json translationObj;
+                translationFileStream >> translationObj;
+
+                return translationObj;
+            }
+            catch (...) {
+                MessageBoxA(nullptr, (string("Failed to parse \"").append(name).append("\"! Check the file for mistakes.")).c_str(), "GDL Error", 0);
+                exit(1);
+                return nullptr;
+            }
+        }
+        else
+        {
+            MessageBoxA(nullptr, (string("Failed to open \"").append(name).append("\"!")).c_str(), "GDL Error", 0);
+            exit(1);
+            return nullptr;
+        }
+    }
 }

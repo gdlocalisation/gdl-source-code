@@ -1,6 +1,5 @@
 #pragma once
 
-// system
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -19,19 +18,21 @@ using std::cout, std::endl, std::tuple,
 using namespace cocos2d;
 
 // gd.h
-#include <gd.h>
+#include "gd.h/include/gd.h"
+
 using namespace gd;
 
 // minhook
-#include <MinHook.h>
+#include "minhook/include/MinHook.h"
 
 // utf8 lib
-#include "utf8.h"
+#include "utf8/utf8.h"
 
 // json lib
 #include "json/json.hpp"
+
 using namespace nlohmann;
 
 // defines
-//#define GDL_INDEV
-#define GDL_VERSION "1.0.0"
+// #define GDL_INDEV
+#define GDL_VERSION "1.1.0"

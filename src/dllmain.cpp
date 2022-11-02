@@ -1,16 +1,11 @@
-#include <includes.h>
-#include "Hooks.hpp"
-#include "Menu.hpp"
+#include "includes.h"
+#include "hooks.hpp"
+#include "menu.hpp"
 
-// The entry fn
 DWORD WINAPI my_thread(void* hModule) {
 #ifdef GDL_INDEV
     AllocConsole();
     freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
-
-    setlocale(LC_ALL, "ru-RU");
-    system("chcp 65001");
-    SetConsoleCP(65001);
     SetConsoleOutputCP(65001);
 #endif // GDL_INDEV
 
@@ -19,8 +14,8 @@ DWORD WINAPI my_thread(void* hModule) {
         return 0;
     }
 
-    Hooks::main();
-    Menu::main();
+    hooks::main();
+    menu::main();
 
     MH_EnableHook(MH_ALL_HOOKS);
 

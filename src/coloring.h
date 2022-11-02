@@ -1,9 +1,9 @@
 #pragma once
-#include <includes.h>
+#include "includes.h"
+#include "utils.hpp"
 #include <regex>
-#include <utils.hpp>
 
-namespace Coloring {
+namespace coloring {
 	string removeTags(string str, bool removeColors = true, bool removeDelay = true, bool removeInstant = true);
 	void parseTags(string str, CCArray* letters);
 }
