@@ -566,7 +566,7 @@ protected:
         CC_SYNTHESIZE_NV(float, m_fBrVertexMod, BrVertexMod);
         PAD(16);
         bool m_bUnknown;
-        int m_nUnknown;
+        float m_fDelay;
     )
 };
 
