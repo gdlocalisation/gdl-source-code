@@ -110,8 +110,7 @@ namespace menu {
 		"- Andre\n"
 		"- mat\n"
 		"- HJFod\n"
-		"- Ayrelia"
-		;
+		"- Ayrelia";
 
 		const char* thanks2 =
 		"- alk1m123\n"
@@ -122,8 +121,7 @@ namespace menu {
 		"- camila314\n"
 		"- Eldyj\n"
 		"- Rektor\n"
-		"- Тестерам GDL"
-		;
+		"- Тестерам GDL";
 
 		auto ta1 = createCreditsLabels(thanks1, "goldFont.fnt");
 		ta1->setScale(0.6f);
