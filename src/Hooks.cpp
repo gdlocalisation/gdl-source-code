@@ -72,7 +72,7 @@ namespace hooks {
 
 	void(__thiscall* setString_o)(TextArea*, string);
 	void __fastcall setString_hk(TextArea* self, void*, string str) {
-		// Ïðèâåò sleepyAut!
+		// ÐŸÑ€Ð¸Ð²ÐµÑ‚ sleepyAut!
 		setString_o(self, ""); // to make self->m_label != nullptr
 
 		auto noTagsStr = coloring::removeTags(str);
@@ -243,11 +243,11 @@ namespace hooks {
 			gauntletType == 14 || // Doom
 			gauntletType == 15) // Death
 		{
-			nameLabel->setString(string(u8"Îñòðîâ ").append(gauntletName).c_str());
-			shadowLabel->setString(string(u8"Îñòðîâ ").append(gauntletName).c_str());
+			nameLabel->setString(string(u8"ÐžÑÑ‚Ñ€Ð¾Ð² ").append(gauntletName).c_str());
+			shadowLabel->setString(string(u8"ÐžÑÑ‚Ñ€Ð¾Ð² ").append(gauntletName).c_str());
 		}
 		else {
-			nameLabel->setString(gauntletName.append(u8" Îñòðîâ").c_str());
+			nameLabel->setString(gauntletName.append(u8" ÐžÑÑ‚Ñ€Ð¾Ð²").c_str());
 			shadowLabel->setString(gauntletName.c_str());
 		}
 
@@ -267,7 +267,7 @@ namespace hooks {
 			}
 		}
 
-		lbl->setString(string(u8"Òàáëèöà Ëèäåðîâ ").append(lvl->m_sLevelName).c_str());
+		lbl->setString(string(u8"Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð° Ð›Ð¸Ð´ÐµÑ€Ð¾Ð² ").append(lvl->m_sLevelName).c_str());
 
 		return true;
 	}
