@@ -40,8 +40,9 @@ namespace utils {
     class Logger : private std::streambuf, public std::ostream {
     public:
         Logger() : std::ostream(this) {
-            std::time_t t = std::time(nullptr);
-            std::tm tm = *std::localtime(&t);
+            std::tm tm;
+            time_t now = time(0);
+            localtime_s(&tm, &now);
             cout << "[" << std::put_time(&tm, "%H:%M:%S") << "] ";
         }
 
@@ -49,7 +50,7 @@ namespace utils {
             cout << endl;
         }
 
-        friend Logger& operator<<(Logger& l, CCPoint p);
+        friend inline Logger& operator<<(Logger& l, CCPoint p);
 
     private:
         int overflow(int c) override {
@@ -58,7 +59,7 @@ namespace utils {
         }
     };
 
-    Logger& operator<<(Logger& l, CCPoint p) {
+    inline Logger& operator<<(Logger& l, CCPoint p) {
         l << "{" << p.x << "," << p.y << "}";
         return l;
     }

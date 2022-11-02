@@ -65,7 +65,7 @@ namespace menu {
 
 		// page 1
 
-		auto a1 = CCLabelBMFont::create(u8"Разработчики:", "goldFont.fnt");
+		auto a1 = CCLabelBMFont::create("Р Р°Р·СЂР°Р±РѕС‚С‡РёРєРё:", "goldFont.fnt");
 		m_pPage1->addChild(a1);
 		a1->setScale(0.8f);
 		a1->setPositionY(61);
@@ -74,14 +74,14 @@ namespace menu {
 		MENU_PROFILE_MAKE("Mye", "mye.png", mye_pr, false)
 		MENU_PROFILE_MAKE("Demi Sans", "demisans.png", demi_pr, true)
 		MENU_PROFILE_MAKE("LukasRadon", "lukasradon.png", lukas_pr, true)
-		MENU_PROFILE_MAKE(u8"Гущин", "guschin.png", gus_pr, false)
+		MENU_PROFILE_MAKE("Р“СѓС‰РёРЅ", "guschin.png", gus_pr, false)
 
 		auto row1 = CCMenu::create(jaan_pr, mye_pr, demi_pr, lukas_pr, gus_pr, nullptr);
 		this->m_pPage1->addChild(row1);
 		row1->alignItemsHorizontallyWithPadding(55);
 		row1->setPosition({ 0, 26 });
 
-		MENU_PROFILE_MAKE(u8"Махимал", "maximal.png", max_pr, false)
+		MENU_PROFILE_MAKE("РњР°С…РёРјР°Р»", "maximal.png", max_pr, false)
 		MENU_PROFILE_MAKE("Raelc", "raelc.png", raelc_pr, false)
 		MENU_PROFILE_MAKE("Pixelsuft", "noname.png", noname_pr, false)
 		MENU_PROFILE_MAKE("Uulti", "uulti.png", uulti_pr, false)
@@ -96,7 +96,7 @@ namespace menu {
 
 		// page 2
 
-		auto a2 = CCLabelBMFont::create(u8"Отдельная благодарность:", "goldFont.fnt");
+		auto a2 = CCLabelBMFont::create("РћС‚РґРµР»СЊРЅР°СЏ Р±Р»Р°РіРѕРґР°СЂРЅРѕСЃС‚СЊ:", "goldFont.fnt");
 		m_pPage2->addChild(a2);
 		a2->setScale(0.7f);
 		a2->setPositionY(63);
@@ -122,7 +122,7 @@ namespace menu {
 		"- camila314\n"
 		"- Eldyj\n"
 		"- Rektor\n"
-		u8"- Тестерам GDL"
+		"- РўРµСЃС‚РµСЂР°Рј GDL"
 		;
 
 		auto ta1 = createCreditsLabels(thanks1, "goldFont.fnt");

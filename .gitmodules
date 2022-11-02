@@ -1,0 +1,6 @@
+[submodule "libraries/minhook"]
+	path = libraries/minhook
+	url = https://github.com/TsudaKageyu/minhook.git
+[submodule "libraries/utf8"]
+	path = libraries/utf8
+	url = https://github.com/nemtrif/utfcpp.git

@@ -12,7 +12,7 @@ namespace menu {
 	text_profile_##var->limitLabelWidth(30.f, 0.5f, 0.35f);						\
 	var->addChild(text_profile_##var);
 
-	CCNode* createCreditsLabels(string text, const char* fntName) {
+	inline CCNode* createCreditsLabels(string text, const char* fntName) {
 		auto ret = CCNode::create();
 
 		float yPos = 0;

@@ -26,10 +26,12 @@ using namespace gd;
 #include "minhook/include/MinHook.h"
 
 // utf8 lib
-#include "utf8/utf8.h"
+#include "utf8/source/utf8.h"
 
 // json lib
+#pragma warning(push, 0)
 #include "json/json.hpp"
+#pragma warning(pop)
 
 using namespace nlohmann;
 

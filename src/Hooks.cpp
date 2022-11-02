@@ -243,11 +243,11 @@ namespace hooks {
 			gauntletType == 14 || // Doom
 			gauntletType == 15) // Death
 		{
-			nameLabel->setString(string(u8"Остров ").append(gauntletName).c_str());
-			shadowLabel->setString(string(u8"Остров ").append(gauntletName).c_str());
+			nameLabel->setString(string("Остров ").append(gauntletName).c_str());
+			shadowLabel->setString(string("Остров ").append(gauntletName).c_str());
 		}
 		else {
-			nameLabel->setString(gauntletName.append(u8" Остров").c_str());
+			nameLabel->setString(gauntletName.append(" Остров").c_str());
 			shadowLabel->setString(gauntletName.c_str());
 		}
 
@@ -267,7 +267,7 @@ namespace hooks {
 			}
 		}
 
-		lbl->setString(string(u8"Таблица Лидеров ").append(lvl->m_sLevelName).c_str());
+		lbl->setString(string("Таблица Лидеров ").append(lvl->m_sLevelName).c_str());
 
 		return true;
 	}

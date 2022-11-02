@@ -30,7 +30,7 @@ namespace coloring {
 
 			auto tag = modStr.at(beginPos + 2);
 
-			int endPos = modStr.find("</c>", pos);
+			size_t endPos = modStr.find("</c>", pos);
 
 			ccColor3B col;
 
@@ -65,7 +65,7 @@ namespace coloring {
 				col = { 0xFF, 0x00, 0x00 };
 			}
 
-			for (int i = beginPos; i < endPos - 4; i++) {
+			for (size_t i = beginPos; i < endPos - 4; i++) {
 				if (i >= letters->count())
 					break;
 
@@ -83,7 +83,7 @@ namespace coloring {
 
 		pos = 0;
 		while (true) {
-			int beginPos = modStr.find("<d", pos);
+			size_t beginPos = modStr.find("<d", pos);
 			if (beginPos == string::npos)
 				break;
 
@@ -102,17 +102,17 @@ namespace coloring {
 
 		pos = 0;
 		while (true) {
-			int beginPos = modStr.find("<i>", pos);
+			size_t beginPos = modStr.find("<i>", pos);
 			if (beginPos == string::npos)
 				break;
 
-			int endPos = modStr.find("</i>", pos);
+			size_t endPos = modStr.find("</i>", pos);
 
-			for (int i = beginPos; i < endPos - 3; i++) {
+			for (size_t i = beginPos; i < endPos - 3; i++) {
 				if (i >= letters->count())
 					break;
 
-				dynamic_cast<CCSprite*>(letters->objectAtIndex(i))->m_bVisible = true;
+				dynamic_cast<CCSprite*>(letters->objectAtIndex(i))->setVisible(true);
 			}
 
 			modStr.erase(modStr.begin() + beginPos, modStr.begin() + beginPos + 3); // remove the <i>
