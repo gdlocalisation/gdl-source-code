@@ -75,14 +75,31 @@ namespace gd {
 
 	public:
 		static TextArea* create(const char* font, bool disableColor,
-			std::string caption, float scale, float width, float height,
+			std::string const& caption, float scale, float width, float height,
 			cocos2d::CCPoint const& anchorPos) {
-			auto pRet = reinterpret_cast<TextArea* (__vectorcall*)(const char*,
-				float, float, float, float,
-				bool, std::string, cocos2d::CCPoint)>(
-					base + 0x33270
-				)(font, 0.f, scale, width, height, disableColor, caption, anchorPos);
+            // std::cout << 1.1 << std::endl;
+			// auto pRet = reinterpret_cast<TextArea* (__vectorcall*)(const char*,
+			// 	float, float, float, float,
+			// 	bool, std::string, cocos2d::CCPoint)>(
+			// 		base + 0x33270
+			// 	)(font, 0.f, scale, width, height, disableColor, caption, anchorPos);
+
+            // auto pRet = reinterpret_cast<TextArea* (__cdecl*)(const char*, bool, std::string, cocos2d::CCPoint)>(font, )
+
+            // __asm {
+            //     movss xmm1, scale
+            //     movss xmm2, width
+            //     movss xmm3, height
+            // }
+
+            // shit doesnt work
+
+            auto pRet = reinterpret_cast<
+                            TextArea* (__vectorcall*)(const char*, bool, std::string, cocos2d::CCPoint, float, float, float, float)
+                        >(base + 0x33270)(font, disableColor, caption, anchorPos, 0.f, scale, width, height);
+
 			__asm add esp, 0x20
+
 			return pRet;
 		}
 

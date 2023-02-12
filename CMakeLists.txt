@@ -19,4 +19,6 @@ add_subdirectory("libraries/minhook")
 
 target_link_libraries(${PROJECT_NAME} minhook cocos2d)
 
-# target_link_options(${PROJECT_NAME} PUBLIC $<$<CXX_COMPILER_ID:MSVC>:/FORCE:MULTIPLE>)
+# add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> "D:\\Games\\Basement.1.2\\adaf-dll\\GDLocalisation.dll"
+# )

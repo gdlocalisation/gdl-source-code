@@ -197,7 +197,7 @@ namespace menu {
 	bool(__thiscall* LoadingLayer_init_o)(void* self, bool fromReload);
 	bool __fastcall LoadingLayer_init_hk(void* self, void*, bool fromReload) {
 		loadedTextures = false;
-
+        
 		return LoadingLayer_init_o(self, fromReload);
 	}
 
@@ -210,6 +210,7 @@ namespace menu {
 			CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(
 				CCFileUtils::sharedFileUtils()->fullPathForFilename("GDL_Plist.plist", false).c_str()
 			);
+
 			loadedTextures = true;
 		}
 

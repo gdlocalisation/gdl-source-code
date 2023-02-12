@@ -2,6 +2,7 @@
 #include "includes.h"
 #include "utils.hpp"
 #include "BrownAlertDelegate.hpp"
+#include "hooks.hpp"
 
 namespace menu {
 #define MENU_PROFILE_MAKE(name, tex, var, smallNick) 							\
