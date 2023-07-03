@@ -1,30 +1,27 @@
 #include "hooks.hpp"
 
 namespace hooks {
-    void initPatches() {
-        strings.clear();
+    json locationsFile;
 
-        for (auto& pair : hooks::langFile.items()) {
-            if (!hooks::patchFile.contains(pair.key()))
+    void initPatches() {
+        static vector<string> strings;
+
+        auto langFile = utils::loadJson("ru_ru.json");
+        auto patchFile = utils::loadJson("gdl_patches.json");
+
+        strings.clear();
+        strings.reserve(langFile.size());
+
+        for (const auto& pair : langFile.items()) {
+            if (!patchFile.contains(pair.key()))
                 continue;
 
             strings.push_back(pair.value());
 
-            for (auto& addrStr : hooks::patchFile[pair.key()]) {
-                auto addr = std::stoul(string(addrStr), nullptr, 16) + 0xC00;
-
+            for (const auto addr : patchFile[pair.key()]) {
                 const char* str = strings[strings.size() - 1].c_str();
 
-                DWORD old;
-                VirtualProtect((void*)(base + addr), 4, PAGE_EXECUTE_READWRITE, &old);
-                WriteProcessMemory(
-                    GetCurrentProcess(),
-                    (void*)(base + addr),
-                    &str,
-                    4,
-                    nullptr
-                );
-                VirtualProtect((void*)(base + addr), 4, old, nullptr);
+                utils::patch(base + addr, (uint8_t*)&str, 4);
             }
         }
     }
@@ -32,11 +29,7 @@ namespace hooks {
     bool(__thiscall* dispatchKeyboardMSG_o)(void* self, enumKeyCodes key, bool down);
     bool __fastcall dispatchKeyboardMSG_hk(void* self, void*, enumKeyCodes key, bool down) {
         if (key == KEY_P && down) {
-            langFile = utils::loadJson("ru_ru.json");
-            patchFile = utils::loadJson("gdl_patches.json");
             locationsFile = utils::loadJson("ru_ru_locations.json");
-            // im going to return to this later
-            initPatches();
             initPatches();
 
             return true;
@@ -52,10 +45,10 @@ namespace hooks {
 
         auto winSize = CCDirector::sharedDirector()->getWinSize();
 
-        CCLabelBMFont* text = CCLabelBMFont::create(string("GDL ").append(GDL_VERSION).c_str(), "goldFont.fnt");
+        CCLabelBMFont* text = CCLabelBMFont::create("GDL v1.1.2", "goldFont.fnt");
         self->addChild(text);
         text->setScale(0.75);
-        text->setPosition({ winSize.width / 2, 308.0 });
+        text->setPosition({winSize.width / 2.f, winSize.height - 14.f});
 
         return true;
     }
@@ -63,91 +56,77 @@ namespace hooks {
     void(__thiscall* assign_o)(void*, const char* ptr, int size);
     void __fastcall assign_hk(void* a, void*, const char* ptr, int size) {
         // Why this is required:
-        // In some places of gd code you can see std::string::assign called with fixed length
-        // Which limits strings to the length it was in the game but the translated strings may be longer than the original ones
-        // It is also pretty difficult to patch the length as it is not called everywhere and i would somehow need to find places to patch
+        // In some places of gd you can see std::string::assign called with fixed length
+        // which limits strings to the length it was in the game but the translated strings may be longer than the original ones.
+        // It is also pretty difficult to patch the length as it is not used in all calls and i would somehow need to find places to patch
         // So it is easier to hook it and just set it to the string length instead of the fixed length
         assign_o(a, ptr, strlen(ptr));
     }
 
-    void(__thiscall* setString_o)(TextArea*, string);
-    void __fastcall setString_hk(TextArea* self, void*, string str) {
-        setString_o(self, ""); // to make self->m_label != nullptr
-        
-        auto noTagsStr = coloring::removeTags(str);
-        
-        auto lines = utils::splitByWidth(noTagsStr, self->m_width, self->m_fontFile.c_str());
-        
-        vector<string> letters(lines.size(), "a");
-        setString_o(self, utils::joinStrings(letters, "\n")); // to have enough lines for the text to fit
-        
-        if (!self->m_label->getChildren()) return;
-        
-        CCArray* letterArray = CCArray::create();
-        float height = 0;
-        for (size_t i = 0; i < self->m_label->getChildren()->count();) { // this is because if i remove an item from the array and
-                                                                         // increase i, it may go out of the bounds of the array
-                                                                         // and to remove item [i+1] i will basically need to remove
-                                                                         // item [i] and not increase i for that
-            auto lbl = dynamic_cast<CCLabelBMFont*>(self->m_label->getChildren()->objectAtIndex(i));
-
-            if (i < lines.size()) {                
-                lbl->setString(lines[i].c_str());
-                lbl->setPositionX(0);
-                lbl->setAnchorPoint({ self->m_anchorPoint.x, lbl->getAnchorPoint().y });
-                height += lbl->getScaledContentSize().height;
-
-                CCARRAY_FOREACH_B_TYPE(lbl->getChildren(), letter, CCSprite) {
-                    letterArray->addObject(letter);
-                }
-                i++;
-                continue;
-            }
-
-            lbl->removeFromParent();
-        }
-        
-        self->setTextureRect({ 0, 0, self->getContentSize().width, height });
-        self->setContentSize({ self->getContentSize().width, height });
-        self->m_label->setPositionY(height - 6);
-        
-        self->m_label->m_pLetterArray->removeAllObjects();
-        COPY_ARRAY(letterArray, self->m_label->m_pLetterArray); // if i just set 'self->m_label->m_pLetterArray' to 'letterArray' it will
-                                                                // crash bc 'letterArray' will get destroyed after the function ends
-                                                                
-        if (!self->m_disableColor)
-            coloring::parseTags(str, self->m_label->m_pLetterArray);
+    // std::string::operator+(const char* ptr, int size);
+    void(__thiscall* operator_plus_o)(void* self, const char* ptr, int size);
+    void __fastcall operator_plus_hk(void* self, void*, const char* ptr, int size) {
+        operator_plus_o(self, ptr, strlen(ptr));
     }
 
-    void (__thiscall* openURL_o)(void*, const char* url);
+    void(__thiscall* setString_o)(TextArea*, string);
+    void __fastcall setString_hk(TextArea* self, void*, string str) {
+        // logD("setString \"{}\"", str);
+
+        auto noTagsStr = coloring::removeTags(str);
+
+        auto lines = utils::splitByWidth(noTagsStr, self->m_width, self->m_fontFile.c_str());
+
+        if (lines.size() == 0)
+            return;
+
+        string linesGen(lines.size(), '\n');
+        setString_o(self, linesGen);
+
+        CCArray* letterArray = CCArray::create();
+        CCARRAY_FOREACH_B_TYPE(self->m_label->getChildren(), lbl, CCLabelBMFont) {
+            lbl->setString(lines[ix].c_str());
+            lbl->setAnchorPoint({self->m_anchorPoint.x, lbl->getAnchorPoint().y});
+            letterArray->addObjectsFromArray(lbl->getChildren());
+        }
+
+        self->m_label->m_pLetterArray->removeAllObjects();
+        self->m_label->m_pLetterArray->addObjectsFromArray(letterArray);
+
+        if (!self->m_disableColor)
+            coloring::parseTags(str, letterArray);
+    }
+
+    void(__thiscall* openURL_o)(void*, const char* url);
     void __fastcall openURL_hk(void* self, void*, const char* url) {
         if (string(url) == "http://robtopgames.com/blog/2017/02/01/geometry-dash-newgrounds")
-            url = "https://www.gdlocalisation.gq/gd/blog/ru/#newgrounds_start";
+            url = "https://www.gdlocalisation.netlify.app/gd/blog/ru/#newgrounds_start";
         else if (string(url) == "http://www.boomlings.com/files/GJGuide.pdf")
-            url = "https://www.gdlocalisation.gq/gd/gjguide/ru/gjguide_ru.pdf";
+            url = "https://www.gdlocalisation.netlify.app/gd/gjguide/ru/gjguide_ru.pdf";
         else if (string(url) == "http://www.robtopgames.com/gd/faq")
-            url = "https://www.gdlocalisation.gq/gd/blog/ru";
+            url = "https://www.gdlocalisation.netlify.app/gd/blog/ru";
 
         openURL_o(self, url);
     }
 
     bool(__thiscall* AchievementBar_init_o)(void* self, const char* title, const char* desc, const char* iconSprite, bool quest);
-    bool __fastcall AchievementBar_init_hk(AchievementBar* self, void*, const char* title, const char* desc, const char* iconSprite, bool quest) {
+    bool __fastcall AchievementBar_init_hk(AchievementBar* self, void*, const char* title, const char* desc, const char* iconSprite,
+                                           bool quest) {
         if (!AchievementBar_init_o(self, title, desc, iconSprite, quest))
             return false;
 
         auto winSize = CCDirector::sharedDirector()->getWinSize();
-        
+
         self->m_pIcon->setPositionX(-110);
 
-        self->m_pAchDesc->setAnchorPoint({ 0.0, self->m_pAchDesc->getAnchorPoint().y });
+        self->m_pAchDesc->setAnchorPoint({0.0, self->m_pAchDesc->getAnchorPoint().y});
         self->m_pAchDesc->setPositionX(0);
         CCARRAY_FOREACH_B_TYPE(self->m_pAchDesc->getChildren(), lbl, CCLabelBMFont) {
-            lbl->setAnchorPoint({ 0.0, lbl->getAnchorPoint().y });
-            lbl->setPositionX(self->m_pAchDesc->convertToNodeSpaceAR({ winSize.width / 2 - 75, 0.0 }).x);
+            lbl->setAnchorPoint({0.0, lbl->getAnchorPoint().y});
+            lbl->setPositionX(self->m_pAchDesc->convertToNodeSpaceAR({winSize.width / 2 - 75, 0.0}).x);
         }
 
-        self->m_pAchTitle->setPosition({ self->m_pAchDesc->getParent()->convertToNodeSpaceAR({ winSize.width / 2 - 75, 0.0 }).x, 22 });
+        self->m_pAchTitle->setPosition({self->m_pAchDesc->getParent()->convertToNodeSpaceAR({winSize.width / 2 - 75, 0.0}).x, 22});
 
         return true;
     }
@@ -158,20 +137,11 @@ namespace hooks {
             return false;
 
         auto packID = mapPack->m_nPackID;
-        if (packID == 4 || // Shadow
-            packID == 5 || // Lava
-            packID == 7 || // Chaos
-            packID == 9 || // Time
-            packID == 11 || // Magic
-            packID == 12 || // Spike
-            packID == 13 || // Monster
-            packID == 14 || // Doom
-            packID == 15) // Death
-        {
-            auto nameLabel = as<CCLabelBMFont*>(self->getChildren()->objectAtIndex(3));
-            auto nameShadow = as<CCLabelBMFont*>(self->getChildren()->objectAtIndex(5));
-            auto gauntletLabel = as<CCLabelBMFont*>(self->getChildren()->objectAtIndex(4));
-            auto gauntletShadow = as<CCLabelBMFont*>(self->getChildren()->objectAtIndex(6));
+        if (utils::shouldReverseGauntlet(packID)) {
+            auto nameLabel = reinterpret_cast<CCLabelBMFont*>(self->getChildren()->objectAtIndex(3));
+            auto nameShadow = reinterpret_cast<CCLabelBMFont*>(self->getChildren()->objectAtIndex(5));
+            auto gauntletLabel = reinterpret_cast<CCLabelBMFont*>(self->getChildren()->objectAtIndex(4));
+            auto gauntletShadow = reinterpret_cast<CCLabelBMFont*>(self->getChildren()->objectAtIndex(6));
 
             nameLabel->setPositionY(75);
             nameShadow->setPositionY(72);
@@ -187,7 +157,6 @@ namespace hooks {
         return true;
     }
 
-    // unfortunately there is no CCLabelBMFont::setPosition
     void(__thiscall* CCNode_setPosition_o)(CCNode* self, CCPoint* p);
     void __fastcall CCNode_setPosition_hk(CCNode* self, void*, CCPoint* p) {
         auto lbl = dynamic_cast<CCLabelBMFont*>(self);
@@ -197,8 +166,10 @@ namespace hooks {
 
         if (locationsFile.contains(lbl->getString())) {
             auto entry = locationsFile[lbl->getString()];
-            if (entry.contains("x")) *p = *p + ccp(entry["x"], 0);
-            if (entry.contains("y")) *p = *p + ccp(0, entry["y"]);
+            if (entry.contains("x"))
+                p->x += entry["x"];
+            if (entry.contains("y"))
+                p->y += entry["y"];
         }
 
         CCNode_setPosition_o(self, p);
@@ -208,7 +179,8 @@ namespace hooks {
     void __fastcall CCLabelBMFont_setScale_hk(CCLabelBMFont* self, void*, float scale) {
         if (locationsFile.contains(self->getString())) {
             auto entry = locationsFile[self->getString()];
-            if (entry.contains("scale")) scale = entry["scale"];
+            if (entry.contains("scale"))
+                scale = entry["scale"];
         }
 
         CCLabelBMFont_setScale_o(self, scale);
@@ -216,7 +188,8 @@ namespace hooks {
 
     bool(__thiscall* GauntletLayer_init_o)(CCLayer* self, int gauntletType);
     bool __fastcall GauntletLayer_init_hk(CCLayer* self, void*, int gauntletType) {
-        if (!GauntletLayer_init_o(self, gauntletType)) return false;
+        if (!GauntletLayer_init_o(self, gauntletType))
+            return false;
 
         CCLabelBMFont* nameLabel = nullptr;
         CCLabelBMFont* shadowLabel = nullptr;
@@ -225,133 +198,101 @@ namespace hooks {
         CCARRAY_FOREACH_B_TYPE(self->getChildren(), node, CCNode) {
             if (dynamic_cast<CCLabelBMFont*>(node)) {
                 if (nameLabel == nullptr)
-                    nameLabel = as<CCLabelBMFont*>(node);
+                    nameLabel = reinterpret_cast<CCLabelBMFont*>(node);
                 else if (shadowLabel == nullptr)
-                    shadowLabel = as<CCLabelBMFont*>(node);
+                    shadowLabel = reinterpret_cast<CCLabelBMFont*>(node);
             }
         }
+
         auto gauntletName = utils::splitString(nameLabel->getString(), ' ')[0];
 
-        if (gauntletType == 4 || // Shadow
-            gauntletType == 5 || // Lava
-            gauntletType == 7 || // Chaos
-            gauntletType == 9 || // Time
-            gauntletType == 11 || // Magic
-            gauntletType == 12 || // Spike
-            gauntletType == 13 || // Monster
-            gauntletType == 14 || // Doom
-            gauntletType == 15) // Death
-        {
-            nameLabel->setString(string("Остров ").append(gauntletName).c_str());
-            shadowLabel->setString(string("Остров ").append(gauntletName).c_str());
-        }
-        else {
-            nameLabel->setString(gauntletName.append(" Остров").c_str());
-            shadowLabel->setString(gauntletName.c_str());
-        }
+        auto newName = fmt::format(utils::shouldReverseGauntlet(gauntletType) ? "Остров {}" : "{} Остров", gauntletName);
+
+        nameLabel->setString(newName.c_str());
+        shadowLabel->setString(newName.c_str());
 
         return true;
     }
 
     bool(__thiscall* LevelLeaderboard_init_o)(CCNode* self, GJGameLevel* lvl, int type);
     bool __fastcall LevelLeaderboard_init_hk(CCNode* self, void*, GJGameLevel* lvl, int type) {
-        if (!LevelLeaderboard_init_o(self, lvl, type)) return false;
+        if (!LevelLeaderboard_init_o(self, lvl, type))
+            return false;
 
         CCLabelBMFont* lbl = nullptr;
 
-        CCARRAY_FOREACH_B_TYPE(utils::getChildByIndex<CCNode*>(self, 0)->getChildren(), node, CCNode) {
+        CCARRAY_FOREACH_B_TYPE(dynamic_cast<CCNode*>(self->getChildren()->objectAtIndex(0))->getChildren(), node, CCNode) {
             if (dynamic_cast<CCLabelBMFont*>(node)) {
                 if (lbl == nullptr)
-                    lbl = as<CCLabelBMFont*>(node);
+                    lbl = reinterpret_cast<CCLabelBMFont*>(node);
             }
         }
 
-        lbl->setString(string("Таблица Лидеров ").append(lvl->m_sLevelName).c_str());
+        lbl->setString(fmt::format("Таблица Лидеров для {}", lvl->m_sLevelName).c_str());
 
         return true;
     }
 
+    // MENU HOOKS
+
+    bool(__thiscall* LoadingLayer_init_o)(void* self, bool fromReload);
+    bool __fastcall LoadingLayer_init_hk(void* self, void*, bool fromReload) {
+        auto ret = LoadingLayer_init_o(self, fromReload);
+
+        CCTextureCache::sharedTextureCache()->addImage(CCFileUtils::sharedFileUtils()->fullPathForFilename("GDL_Sheet.png", false).c_str(),
+                                                       false);
+        CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(
+            CCFileUtils::sharedFileUtils()->fullPathForFilename("GDL_Sheet.plist", false).c_str());
+
+        return ret;
+    }
+
+    void(__thiscall* customSetup_o)(void* self);
+    void __fastcall customSetup_hk(GJDropDownLayer* self, void*) {
+        customSetup_o(self);
+
+        auto spr = cocos2d::CCSprite::createWithSpriteFrameName("gdl_icon.png");
+        spr->setScale(1.25f);
+
+        auto btn = CCMenuItemSpriteExtra::create(spr, self, menu_selector(GDLMenu::openLayer));
+        btn->setPosition({0, 0});
+
+        auto menu = CCMenu::create();
+        menu->addChild(btn, 99999);
+        menu->setPosition({30, 30});
+        self->m_pLayer->addChild(menu, 99999);
+    }
+
     void main() {
-        langFile = utils::loadJson("ru_ru.json");
-        patchFile = utils::loadJson("gdl_patches.json");
         locationsFile = utils::loadJson("ru_ru_locations.json");
 
-        // im going to return to this later
-        initPatches();
-        initPatches();
+        // fix crash because of cyrillic Р, credits to sleepyut
+        utils::patch(base + 0x293658, (uint8_t*)"\x01", 1);
 
-        // fix breaking cyrillic Р, credits to sleepyut
-        DWORD old;
-        VirtualProtect((void*)(base + 0x293658), 1, PAGE_EXECUTE_READWRITE, &old);
-        WriteProcessMemory(GetCurrentProcess(), (void*)(base + 0x293658), "\x01", 1, nullptr);
-        VirtualProtect((void*)(base + 0x293658), 1, old, nullptr);
-        
-        MH_CreateHook(
-            (PVOID)(base + 0xF840),
-            assign_hk,
-            (PVOID*)&assign_o
-        );
+        // Change AchievementCell's text width
+        float achCellWidth = 230.f;
+        utils::patch(base + 0x2E6660, (uint8_t*)&achCellWidth, 4);
 
-        MH_CreateHook(
-            (PVOID)(base + 0x1907b0),
-            MenuLayer_init_hk,
-            (PVOID*)&MenuLayer_init_o
-        );
+        utils::hook(base + 0xF840, assign_hk, (void**)&assign_o);
+        utils::hook(base + 0x156F0, operator_plus_hk, (void**)&operator_plus_o);
+        utils::hook(base + 0x1907b0, MenuLayer_init_hk, (void**)&MenuLayer_init_o);
+        utils::hook(base + 0x33480, setString_hk, (void**)&setString_o);
+        utils::hookCC("?openURL@CCApplication@cocos2d@@UAEXPBD@Z", openURL_hk, (void**)&openURL_o);
+        utils::hookCC("?setPosition@CCNode@cocos2d@@UAEXABVCCPoint@2@@Z", CCNode_setPosition_hk, (void**)&CCNode_setPosition_o);
+        utils::hookCC("?setScale@CCLabelBMFont@cocos2d@@UAEXM@Z", CCLabelBMFont_setScale_hk, (void**)&CCLabelBMFont_setScale_o);
+        utils::hook(base + 0x3B200, AchievementBar_init_hk, (void**)&AchievementBar_init_o);
+        utils::hook(base + 0x106AE0, GauntletNode_init_hk, (void**)&GauntletNode_init_o);
+        utils::hook(base + 0x102E70, GauntletLayer_init_hk, (void**)&GauntletLayer_init_o);
+        utils::hook(base + 0x17C4F0, LevelLeaderboard_init_hk, (void**)&LevelLeaderboard_init_o);
 
-        MH_CreateHook(
-            (PVOID)(base + 0x33480),
-            setString_hk,
-            (PVOID*)&setString_o
-        );
+        // MENU HOOKS
 
-        MH_CreateHook(
-            (PVOID)((int)GetProcAddress(cocosModule, "?openURL@CCApplication@cocos2d@@UAEXPBD@Z")),
-            openURL_hk,
-            (PVOID*)&openURL_o
-        );
+        utils::hook(base + 0x18C080, LoadingLayer_init_hk, (void**)&LoadingLayer_init_o);
+        utils::hook(base + 0x1DD420, customSetup_hk, (void**)&customSetup_o);
 
-        MH_CreateHook(
-            (PVOID)((int)GetProcAddress(cocosModule, "?setPosition@CCNode@cocos2d@@UAEXABVCCPoint@2@@Z")),
-            CCNode_setPosition_hk,
-            (PVOID*)&CCNode_setPosition_o
-        );
-
-        MH_CreateHook(
-            (PVOID)((int)GetProcAddress(cocosModule, "?setScale@CCLabelBMFont@cocos2d@@UAEXM@Z")),
-            CCLabelBMFont_setScale_hk,
-            (PVOID*)&CCLabelBMFont_setScale_o
-        );
-
-        MH_CreateHook(
-            (PVOID)(base + 0x3B200),
-            AchievementBar_init_hk,
-            (PVOID*)&AchievementBar_init_o
-        );
-
-        MH_CreateHook(
-            (PVOID)(base + 0x106AE0),
-            GauntletNode_init_hk,
-            (PVOID*)&GauntletNode_init_o
-        );
-
-        MH_CreateHook(
-            (PVOID)(base + 0x102E70),
-            GauntletLayer_init_hk,
-            (PVOID*)&GauntletLayer_init_o
-        );
-
-        MH_CreateHook(
-            (PVOID)(base + 0x17C4F0),
-            LevelLeaderboard_init_hk,
-            (PVOID*)&LevelLeaderboard_init_o
-        );
-        
 #ifdef GDL_INDEV
-        MH_CreateHook(
-            (PVOID)((int)GetProcAddress(cocosModule, "?dispatchKeyboardMSG@CCKeyboardDispatcher@cocos2d@@QAE_NW4enumKeyCodes@2@_N@Z")),
-            dispatchKeyboardMSG_hk,
-            (PVOID*)&dispatchKeyboardMSG_o
-        );
+        utils::hookCC("?dispatchKeyboardMSG@CCKeyboardDispatcher@cocos2d@@QAE_NW4enumKeyCodes@2@_N@Z", dispatchKeyboardMSG_hk,
+                      (void**)&dispatchKeyboardMSG_o);
 #endif // GDL_INDEV
     }
-}
+} // namespace hooks

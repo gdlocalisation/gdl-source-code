@@ -1,14 +1,10 @@
 #pragma once
-#include "includes.h"
+#include "includes.hpp"
 #include "utils.hpp"
 #include "coloring.h"
+#include "menu.hpp"
 
 namespace hooks {
-    inline json langFile;
-    inline json patchFile;
-    inline json locationsFile;
-    inline vector<string> strings;
-
-	void initPatches();
-	void main();
-}
+    void initPatches();
+    void main();
+} // namespace hooks
