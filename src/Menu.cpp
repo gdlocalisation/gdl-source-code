@@ -1,259 +1,171 @@
 #include "menu.hpp"
 
-namespace menu {
-	GDLMenu::GDLMenu() {
-		this->m_pPage1 = CCLayer::create();
-		this->m_pPage2 = CCLayer::create();
-		this->m_nPage = 1;
-		this->m_pNextBtn = nullptr;
-		this->m_pPrevBtn = nullptr;
-	}
+GDLMenu::GDLMenu() : m_page1(nullptr), m_page2(nullptr), m_curPage(1), m_nextBtn(nullptr), m_prevBtn(nullptr) {}
 
-	void GDLMenu::switchToPage(int page) {
-		this->m_nPage = page;
+void GDLMenu::switchToPage(size_t page) {
+    m_curPage = page;
 
-		switch (page) {
-		case 1:
-			this->m_pPrevBtn->setEnabled(false);
-			this->m_pPrevBtn->setVisible(false);
+    switch (page) {
+    case 1:
+        m_prevBtn->setEnabled(false);
+        m_prevBtn->setVisible(false);
 
-			this->m_pNextBtn->setEnabled(true);
-			this->m_pNextBtn->setVisible(true);
+        m_nextBtn->setEnabled(true);
+        m_nextBtn->setVisible(true);
 
-			this->m_pPage1->setVisible(true);
-			this->m_pPage2->setVisible(false);
-			break;
-		case 2:
-			this->m_pPrevBtn->setEnabled(true);
-			this->m_pPrevBtn->setVisible(true);
+        m_page1->setVisible(true);
+        m_page2->setVisible(false);
+        break;
+    case 2:
+        m_prevBtn->setEnabled(true);
+        m_prevBtn->setVisible(true);
 
-			this->m_pNextBtn->setEnabled(false);
-			this->m_pNextBtn->setVisible(false);
+        m_nextBtn->setEnabled(false);
+        m_nextBtn->setVisible(false);
 
-			this->m_pPage1->setVisible(false);
-			this->m_pPage2->setVisible(true);
-			break;
-		}
-	}
+        m_page1->setVisible(false);
+        m_page2->setVisible(true);
+        break;
+    }
+}
 
-	void GDLMenu::changePage(CCObject* pObj) {
-		this->switchToPage(this->m_nPage + (pObj->getTag() ? 1 : -1));
-	}
+void GDLMenu::changePage(CCObject* pObj) {
+    switchToPage(m_curPage + (pObj->getTag() ? 1 : -1));
+}
 
-	void GDLMenu::openLink(CCObject*) {
-		CCApplication::sharedApplication()->openURL("https://bit.ly/3K4SbF2");
-	}
+void GDLMenu::openLink(CCObject*) {
+    CCApplication::sharedApplication()->openURL("https://bit.ly/3K4SbF2");
+}
 
-	void GDLMenu::setup() {
-		// title
+void GDLMenu::setup() {
+    m_page1 = CCLayer::create();
+    m_page2 = CCLayer::create();
 
-		auto title = CCSprite::createWithSpriteFrameName("gdl_logo_text.png");
-		title->setScale(1.1f);
-		auto titlespr = CCMenuItemSprite::create(title, title, this, (SEL_MenuHandler)&GDLMenu::openLink);
-		titlespr->runAction(
-			CCRepeatForever::create(
-				CCSequence::create(
-					CCEaseInOut::create(CCScaleTo::create(1.5f, 1.2f), 2.0f),
-					CCEaseInOut::create(CCScaleTo::create(1.5f, 1.1f), 2.0f),
-					nullptr
-				)
-			)
-		);
+    // title
 
-		titlespr->setPosition({ -10, 84 });
-		this->m_buttonMenu->addChild(titlespr);
+    auto title = CCSprite::createWithSpriteFrameName("gdl_logo_text.png");
+    title->setScale(1.1f);
+    auto titlespr = CCMenuItemSprite::create(title, title, this, menu_selector(GDLMenu::openLink));
+    titlespr->runAction(CCRepeatForever::create(CCSequence::create(CCEaseInOut::create(CCScaleTo::create(1.5f, 1.2f), 2.0f),
+                                                                   CCEaseInOut::create(CCScaleTo::create(1.5f, 1.1f), 2.0f), nullptr)));
 
-		// page 1
+    titlespr->setPosition({-10, 84});
+    m_buttonMenu->addChild(titlespr);
 
-		auto a1 = CCLabelBMFont::create("Разработчики:", "goldFont.fnt");
-		m_pPage1->addChild(a1);
-		a1->setScale(0.8f);
-		a1->setPositionY(61);
+    // page 1
 
-		MENU_PROFILE_MAKE("Jaan", "jaan.png", jaan_pr, false)
-		MENU_PROFILE_MAKE("Mye", "mye.png", mye_pr, false)
-		MENU_PROFILE_MAKE("Demi Sans", "demisans.png", demi_pr, true)
-		MENU_PROFILE_MAKE("LukasRadon", "lukasradon.png", lukas_pr, true)
-		MENU_PROFILE_MAKE("Гущин", "guschin.png", gus_pr, false)
+    auto a1 = CCLabelBMFont::create("Разработчики:", "goldFont.fnt");
+    m_page1->addChild(a1);
+    a1->setScale(0.8f);
+    a1->setPositionY(61);
 
-		auto row1 = CCMenu::create(jaan_pr, mye_pr, demi_pr, lukas_pr, gus_pr, nullptr);
-		this->m_pPage1->addChild(row1);
-		row1->alignItemsHorizontallyWithPadding(55);
-		row1->setPosition({ 0, 26 });
+    CREATE_MENU_PROFILE("Jaan", "jaan.png", jaan_pr, false)
+    CREATE_MENU_PROFILE("Mye", "mye.png", mye_pr, false)
+    CREATE_MENU_PROFILE("Demi Sans", "demisans.png", demi_pr, true)
+    CREATE_MENU_PROFILE("RayChan", "lukasradon.png", lukas_pr, true)
+    CREATE_MENU_PROFILE("RNMNX", "guschin.png", gus_pr, false)
 
-		MENU_PROFILE_MAKE("Махимал", "maximal.png", max_pr, false)
-		MENU_PROFILE_MAKE("Raelc", "raelc.png", raelc_pr, false)
-		MENU_PROFILE_MAKE("Pixelsuft", "noname.png", noname_pr, false)
-		MENU_PROFILE_MAKE("Uulti", "uulti.png", uulti_pr, false)
+    auto row1 = CCMenu::create(jaan_pr, mye_pr, demi_pr, lukas_pr, gus_pr, nullptr);
+    m_page1->addChild(row1);
+    row1->alignItemsHorizontallyWithPadding(55);
+    row1->setPosition({0, 26});
 
-		auto row2 = CCMenu::create(max_pr, raelc_pr, noname_pr, uulti_pr, nullptr);
-		this->m_pPage1->addChild(row2);
-		row2->alignItemsHorizontallyWithPadding(55);
-		row2->setPosition({ 0, -30 });
+    CREATE_MENU_PROFILE("Махимал", "maximal.png", max_pr, false)
+    CREATE_MENU_PROFILE("Raelc", "raelc.png", raelc_pr, false)
+    CREATE_MENU_PROFILE("Pixelsuft", "noname.png", noname_pr, false)
+    CREATE_MENU_PROFILE("Astragel", "uulti.png", uulti_pr, false)
 
-		this->m_mainLayer->addChild(this->m_pPage1);
-		m_pPage1->setPosition({ CCDirector::sharedDirector()->getWinSize().width / 2, 157 });
+    auto row2 = CCMenu::create(max_pr, raelc_pr, noname_pr, uulti_pr, nullptr);
+    m_page1->addChild(row2);
+    row2->alignItemsHorizontallyWithPadding(55);
+    row2->setPosition({0, -30});
 
-		// page 2
+    m_mainLayer->addChild(m_page1);
+    m_page1->setPosition({CCDirector::sharedDirector()->getWinSize().width / 2, 157});
 
-		auto a2 = CCLabelBMFont::create("Отдельная благодарность:", "goldFont.fnt");
-		m_pPage2->addChild(a2);
-		a2->setScale(0.7f);
-		a2->setPositionY(63);
+    // page 2
 
-		const char* thanks1 =
-		"- RobTop\n"
-		"- QuasarKim\n"
-		"- Kolyah35\n"
-		"- Geode SDK\n"
-		"- GD Programming\n"
-		"- Andre\n"
-		"- mat\n"
-		"- HJFod\n"
-		"- Ayrelia";
+    auto a2 = CCLabelBMFont::create("Отдельная благодарность:", "goldFont.fnt");
+    m_page2->addChild(a2);
+    a2->setScale(0.7f);
+    a2->setPositionY(63);
 
-		const char* thanks2 =
-		"- alk1m123\n"
-		"- Cvolton\n"
-		"- Wylie\n"
-		"- sleepyut\n"
-		"- Log0\n"
-		"- camila314\n"
-		"- Eldyj\n"
-		"- Rektor\n"
-		"- Тестерам GDL";
+    const char* thanks1 = "- RobTop\n"
+                          "- QuasarKim\n"
+                          "- Kolyah35\n"
+                          "- Geode SDK\n"
+                          "- GD Programming\n"
+                          "- Andre\n"
+                          "- mat\n"
+                          "- HJFod\n"
+                          "- Ayrelia";
 
-		auto ta1 = createCreditsLabels(thanks1, "goldFont.fnt");
-		ta1->setScale(0.6f);
-		ta1->setPosition({ -130, 30 });
-		auto ta2 = createCreditsLabels(thanks2, "goldFont.fnt");
-		ta2->setScale(0.6f);
-		ta2->setPosition({ 40, 30 });
-		this->m_pPage2->addChild(ta1);
-		this->m_pPage2->addChild(ta2);
+    const char* thanks2 = "- alk1m123\n"
+                          "- Cvolton\n"
+                          "- Wylie\n"
+                          "- sleepyut\n"
+                          "- Log0\n"
+                          "- camila314\n"
+                          "- Eldyj\n"
+                          "- Rektor\n"
+                          "- Тестерам GDL";
 
-		this->m_pPage2->setPosition({ CCDirector::sharedDirector()->getWinSize().width / 2, 157 });
-		this->m_mainLayer->addChild(this->m_pPage2);
+    auto ta1 = CCLabelBMFont::create(thanks1, "goldFont.fnt");
+    ta1->setAnchorPoint({0, 1});
+    ta1->setScale(0.6f);
+    ta1->setPosition({-130, 50});
+    auto ta2 = CCLabelBMFont::create(thanks2, "goldFont.fnt");
+    ta2->setAnchorPoint({0, 1});
+    ta2->setScale(0.6f);
+    ta2->setPosition({40, 50});
+    m_page2->addChild(ta1);
+    m_page2->addChild(ta2);
 
-		// btns
+    m_page2->setPosition({CCDirector::sharedDirector()->getWinSize().width / 2, 157});
+    m_mainLayer->addChild(m_page2);
 
-		auto _spr = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
-		_spr->setFlipX(true);
-		this->m_pNextBtn = CCMenuItemSpriteExtra::create(
-			_spr,
-			this,
-			(SEL_MenuHandler)&GDLMenu::changePage
-		);
-		this->m_pNextBtn->setTag(1);
-		this->m_pNextBtn->setPositionX(225);
-		this->m_buttonMenu->addChild(this->m_pNextBtn);
+    // btns
 
-		this->m_pPrevBtn = CCMenuItemSpriteExtra::create(
-			CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png"),
-			this,
-			(SEL_MenuHandler)&GDLMenu::changePage
-		);
-		this->m_pPrevBtn->setTag(0);
-		this->m_pPrevBtn->setPositionX(-225);
-		this->m_buttonMenu->addChild(this->m_pPrevBtn);
+    auto _spr = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
+    _spr->setFlipX(true);
+    m_nextBtn = CCMenuItemSpriteExtra::create(_spr, this, menu_selector(GDLMenu::changePage));
+    m_nextBtn->setTag(1);
+    m_nextBtn->setPositionX(225);
+    m_buttonMenu->addChild(m_nextBtn);
 
-		// close btn
+    m_prevBtn =
+        CCMenuItemSpriteExtra::create(CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png"), this, menu_selector(GDLMenu::changePage));
+    m_prevBtn->setTag(0);
+    m_prevBtn->setPositionX(-225);
+    m_buttonMenu->addChild(m_prevBtn);
 
-		auto closeBtnSpr = ButtonSprite::create("OK", 0, false, "goldFont.fnt", "GJ_button_01.png", 0, 1.);
-		auto closeBtn = CCMenuItemSpriteExtra::create(
-			dynamic_cast<CCSprite*>(closeBtnSpr),
-			this,
-			(SEL_MenuHandler)&GDLMenu::onClose
-		);
-		closeBtn->setUserObject(this);
-		closeBtn->setPositionY(-95);
-		this->m_buttonMenu->addChild(closeBtn);
+    // close btn
 
-		this->switchToPage(1);
-	}
+    auto closeBtnSpr = ButtonSprite::create("OK", 0, false, "goldFont.fnt", "GJ_button_01.png", 0, 1.);
+    auto closeBtn = CCMenuItemSpriteExtra::create(dynamic_cast<CCSprite*>(closeBtnSpr), this, menu_selector(GDLMenu::onClose));
+    closeBtn->setUserObject(this);
+    closeBtn->setPositionY(-95);
+    m_buttonMenu->addChild(closeBtn);
 
-	void GDLMenu::keyBackClicked() {
-		this->onClose(nullptr);
-	}
+    switchToPage(1);
+}
 
-	void GDLMenu::openLayer(CCObject* pObj) {
-		CCDirector::sharedDirector()->getRunningScene()->addChild(GDLMenu::create(), 99999);
-	}
+void GDLMenu::keyBackClicked() {
+    onClose(nullptr);
+}
 
-	GDLMenu* GDLMenu::create() {
-		auto pRet = new GDLMenu();
+void GDLMenu::openLayer(CCObject* pObj) {
+    CCDirector::sharedDirector()->getRunningScene()->addChild(GDLMenu::create(), 99999);
+}
 
-		if (pRet && pRet->init(400, 230)) {
-		pRet->autorelease();
-		return pRet;
-		}
+GDLMenu* GDLMenu::create() {
+    auto pRet = new GDLMenu();
 
-		CC_SAFE_DELETE(pRet);
-		return nullptr;
-	}
+    if (pRet && pRet->init(400, 230)) {
+        pRet->autorelease();
+        return pRet;
+    }
 
-	bool loadedTextures = false;
-
-	bool(__thiscall* LoadingLayer_init_o)(void* self, bool fromReload);
-	bool __fastcall LoadingLayer_init_hk(void* self, void*, bool fromReload) {
-		loadedTextures = false;
-        
-		return LoadingLayer_init_o(self, fromReload);
-	}
-
-	void(__thiscall* loadAssets_o)(void*);
-	void __fastcall loadAssets_hk(void* self, void*) {
-		if (!loadedTextures) {
-			CCTextureCache::sharedTextureCache()->addImage(
-				CCFileUtils::sharedFileUtils()->fullPathForFilename("GDL_Plist.png", false).c_str(), false
-			);
-			CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(
-				CCFileUtils::sharedFileUtils()->fullPathForFilename("GDL_Plist.plist", false).c_str()
-			);
-
-			loadedTextures = true;
-		}
-
-		loadAssets_o(self);
-	}
-
-	void(__thiscall* customSetup_o)(void* self);
-	void __fastcall customSetup_hk(GJDropDownLayer* self, void*) {
-		customSetup_o(self);
-
-		auto spr = cocos2d::CCSprite::createWithSpriteFrameName("gdl_icon.png");
-		spr->setScale(1.25f);
-
-		auto btn = CCMenuItemSpriteExtra::create(
-			spr,
-			self,
-			(cocos2d::SEL_MenuHandler)&GDLMenu::openLayer
-		);
-		btn->setPosition({ 0, 0 });
-
-		auto menu = CCMenu::create();
-		menu->addChild(btn, 99999);
-		menu->setPosition({ 30, 30 });
-		self->m_pLayer->addChild(menu, 99999);
-	}
-
-	void main() {
-		MH_CreateHook(
-			(PVOID)(base + 0x18c080),
-			LoadingLayer_init_hk,
-			(PVOID*)&LoadingLayer_init_o
-		);
-
-		MH_CreateHook(
-			(PVOID)(base + 0x18c8e0),
-			loadAssets_hk,
-			(PVOID*)&loadAssets_o
-		);
-
-		MH_CreateHook(
-			(PVOID)(base + 0x1dd420),
-			customSetup_hk,
-			(PVOID*)&customSetup_o
-		);
-	}
+    CC_SAFE_DELETE(pRet);
+    return nullptr;
 }
