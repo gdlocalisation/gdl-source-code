@@ -100,11 +100,11 @@ namespace hooks {
     void(__thiscall* openURL_o)(void*, const char* url);
     void __fastcall openURL_hk(void* self, void*, const char* url) {
         if (string(url) == "http://robtopgames.com/blog/2017/02/01/geometry-dash-newgrounds")
-            url = "https://www.gdlocalisation.netlify.app/gd/blog/ru/#newgrounds_start";
+            url = "https://www.gdlocalisation.uk/gd/blog/ru/#newgrounds_start";
         else if (string(url) == "http://www.boomlings.com/files/GJGuide.pdf")
-            url = "https://www.gdlocalisation.netlify.app/gd/gjguide/ru/gjguide_ru.pdf";
+            url = "https://www.gdlocalisation.uk/gd/gjguide/ru/gjguide_ru.pdf";
         else if (string(url) == "http://www.robtopgames.com/gd/faq")
-            url = "https://www.gdlocalisation.netlify.app/gd/blog/ru";
+            url = "https://www.gdlocalisation.uk/gd/blog/ru";
 
         openURL_o(self, url);
     }
