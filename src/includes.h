@@ -32,6 +32,4 @@ using namespace gd;
 
 using namespace nlohmann;
 
-// defines
 // #define GDL_INDEV
-#define GDL_VERSION "1.1.1"
